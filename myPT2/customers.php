@@ -165,8 +165,8 @@ A173630
         <?php
         }
         if (!isset($_GET['edit'])){
-          $id = ltrim($readrow['fld_customer_id'], 'CID')+1;
-          $id = 'CID'.str_pad($id,3,"0",STR_PAD_LEFT);
+          $id = ltrim($readrow['fld_customer_id'], 'SC')+1;
+          $id = 'SC'.str_pad($id,2,"0",STR_PAD_LEFT);
         }
         $conn = null;
         ?>

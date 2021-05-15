@@ -457,7 +457,7 @@ A173630
         }
         if (!isset($_GET['edit'])){
           $id = ltrim($readrow['fld_product_id'], 'SID')+1;
-          $id = 'SID'.str_pad($id,3,"0",STR_PAD_LEFT);
+          $id = 'SID'.str_pad($id,2,"0",STR_PAD_LEFT);
         }
         $conn = null;
         ?>
