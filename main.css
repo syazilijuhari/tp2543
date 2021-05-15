@@ -1,0 +1,146 @@
+:root {
+	--main-white: #f0f0f0;
+  --main-purpledark: #6200EA;
+  --main-purplelight: #7C4DFF;
+  --main-gray: #303841;
+  --main-black: #000000;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: var(--main-white);
+    background-color: var(--main-gray)
+}
+
+#home h2, h3 {
+	color: var(--main-white);
+}
+
+p {
+	font-size: 16px;
+	color: var(--main-white);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--main-white);
+}
+
+  @media (max-width: 75em) {
+    html {
+      font-size: 60%;
+    }
+  }
+  
+  /* 980px / 16px = 61.25em */
+  @media (max-width: 61.25em) {
+    html {
+      font-size: 58%;
+    }
+  }
+  
+  /* 460px / 16px = 28.75em */
+  @media (max-width: 28.75em) {
+    html {
+      font-size: 55%;
+    }
+  }
+
+.margin {
+	margin-bottom: 35px;
+	font-weight: bolder;
+	text-decoration: underline;
+	text-decoration-style: double;
+}
+
+.container-fluid {
+   	padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.course-title {
+	margin-bottom: 35px;
+	font-weight: bolder;
+	text-shadow: 4px 4px 2px #1f1f1f
+}
+
+#home {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  background-color: var(--main-purpledark)
+}
+
+#lab {
+	background-color: var(--main-purplelight);
+}
+
+h3 {
+  color: var(--main-white);
+  margin: 20px;
+  font-weight: bold;
+  text-decoration: none;
+
+}
+
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+
+#assignment {
+	background-color: var(--main-purpledark);
+  color: var(--main-white)
+}
+
+#project {
+	background-color: var(--main-purplelight)
+}
+
+.thumbnail {
+ 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  background-color: var(--main-purpledark)
+}
+
+.thumbnail:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.btn {
+	box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+#contact {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 980px;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+}
+  
+.contact-details {
+    font-size: 24px;
+    text-shadow: 2px 2px 1px #1f1f1f;
+    transition: transform 0.3s ease-out;
+    color: var(--main-white);
+    margin: 2px;
+}
+  
+.contact-details:hover {
+    transform: translateY(8px);
+    color: var(--main-purpledark)
+}
+#contact p {
+	margin-top: 35px
+}
