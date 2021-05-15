@@ -3,6 +3,10 @@ Muhammad Syazili bin Juhari
 A173630
 -->
 
+<?php
+  include_once 'orders_crud.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -111,28 +115,76 @@ A173630
           <ul>
             <li>
               <label for="oid">Order ID</label>
-              <input type="text" id="oid" name="order_id" disabled>
+              <input type="text" id="oid" name="order_id" readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_id']; ?>">
             </li>
             <li>
               <label for="odate">Order Date</label>
-              <input type="date" id="odate" name="order_date" disabled>
+              <input type="date" id="odate" name="order_date" readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_date']; ?>">
             </li>
             <li>
               <label for="sid">Staff ID</label>
               <select name="sid">
                 <option disabled selected>Select</option>
+                <?php
+                try {
+                  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                  $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a173630_pt2");
+                  $stmt->execute();
+                  $result = $stmt->fetchAll();
+                }
+                catch(PDOException $e){
+                      echo "Error: " . $e->getMessage();
+                }
+                foreach($result as $staffrow) {
+                ?>
+                  <?php if((isset($_GET['edit'])) && ($editrow['fld_staff_id']==$staffrow['fld_staff_id'])) { ?>
+                    <option value="<?php echo $staffrow['fld_staff_id']; ?>" selected><?php echo $staffrow['fld_staff_name'];?></option>
+                  <?php } else { ?>
+                    <option value="<?php echo $staffrow['fld_staff_id']; ?>"><?php echo $staffrow['fld_staff_name'];?></option>
+                  <?php } ?>
+                <?php
+                } // while
+                $conn = null;
+                ?> 
               </select>
             </li>
             <li>
               <label for="cid">Customer ID</label>
               <select name="cid">
                 <option disabled selected>Select</option>
+                <?php
+                //try {
+                  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $stmt = $conn->prepare("SELECT * FROM tbl_customers_a173630_pt2");
+                  $stmt->execute();
+                  $result = $stmt->fetchAll();
+                //}
+                //catch(PDOException $e){
+                     // echo "Error: " . $e->getMessage();
+                //}
+                foreach($result as $custrow) {
+                ?>
+                  <?php if((isset($_GET['edit'])) && ($editrow['fld_customer_id']==$custrow['fld_customer_id'])) { ?>
+                    <option value="<?php echo $custrow['fld_customer_id']; ?>" selected><?php echo $custrow['fld_customer_name'];?></option>
+                  <?php } else { ?>
+                    <option value="<?php echo $custrow['fld_customer_id']; ?>"><?php echo $custrow['fld_customer_name'];?></option>
+                  <?php } ?>
+                <?php
+                } // while
+                $conn = null;
+                ?> 
               </select>
             </li>
           </ul>
           <hr style="margin: 20px 0;">
           <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
+            <?php if (isset($_GET['edit'])) { ?>
+            <button type="submit" name="update">Update</button>
+            <?php } else { ?>
             <button type="submit" name="create">Create</button>
+            <?php } ?>
             <button type="reset">Clear</button>
           </div>
         </form>
@@ -147,28 +199,52 @@ A173630
           <td style="width: 10%;">Customer ID</td>
           <td style="width: 10%"></td>
         </tr>
-        <tr>
-          <td>OID01</td>
-          <td>04//04/2021</td>
-          <td>SC01</td>
-          <td>CC02</td>
-          <td>
-            <a href="orders_details.php">Details</a>
-            <a href="orders.php">Edit</a>
-            <a href="orders.php">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <td>OID02</td>
-          <td>05//04/2021</td>
-          <td>SC02</td>
-          <td>CC01</td>
-          <td>
-            <a href="orders_details.php">Details</a>
-            <a href="orders.php">Edit</a>
-            <a href="orders.php">Delete</a>
-          </td>
-        </tr>
+         <?php
+          try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2 WHERE ";
+            $sql = $sql."tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id and ";
+            $sql = $sql."tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+          }
+          catch(PDOException $e){
+                echo "Error: " . $e->getMessage();
+          }
+          foreach($result as $orderrow) {
+          ?>
+          <tr>
+            <td><?php echo $orderrow['fld_order_id']; ?></td>
+            <td><?php echo $orderrow['fld_order_date']; ?></td>
+            <td><?php echo $orderrow['fld_staff_name']; ?></td>
+            <td><?php echo $orderrow['fld_customer_name']; ?></td>
+            <td>
+              <a href="orders_details.php?oid=<?php echo $orderrow['fld_order_id']; ?>">Details</a>
+              <a href="orders.php?edit=<?php echo $orderrow['fld_order_id']; ?>">Edit</a>
+              <a href="orders.php?delete=<?php echo $orderrow['fld_order_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+            </td>
+          </tr>
+          <?php
+          }
+          if (!isset($_GET['edit']) && $stmt->rowCount()>0){
+            $id = ltrim($orderrow['fld_order_id'], 'O')+1;
+            $id = 'O'.str_pad($id,2,"0",STR_PAD_LEFT);
+          }
+          elseif(!isset($_GET['edit'])){
+            $id = 'O'.str_pad(1,2,"0",STR_PAD_LEFT);
+          }
+          $conn = null;
+          ?> 
+          <script type="text/javascript">
+
+            if("<?php echo $id ?>" !== null && "<?php echo $id ?>" !== ""){
+            var oid = document.getElementById("oid");
+            oid.value = "<?php echo $id ?>";
+            oid.readOnly = true;
+            }
+          </script>
       </table>
     </div>
 </body>

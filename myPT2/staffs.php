@@ -3,6 +3,10 @@ Muhammad Syazili bin Juhari
 A173630
 -->
 
+<?php
+  include_once 'staffs_crud.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -99,20 +103,29 @@ A173630
           <ul>
             <li>
               <label for="sid">ID</label>
-              <input type="text" id="sid" name="staff_id">
+              <input type="text" id="sid" name="staff_id" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_id']; ?>">
             </li>
             <li>
               <label for="cname">Name</label>
-              <input type="text" id="sname" name="staff_name">
+              <input type="text" id="sname" name="staff_name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_name']; ?>">
             </li>
             <li>
               <label for="sphone">Phone No</label>
-              <input type="tel" id="sphone" name="staff_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" placeholder="+60##-#######">
+              <input type="tel" id="sphone" name="staff_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" placeholder="+60##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>">
             </li>
 
           <hr style="margin: 20px 0;">
           <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
+
+            <?php if (isset($_GET['edit'])) { ?>
+            <input type="hidden" name="oldsid" value="<?php echo $editrow['fld_staff_id']; ?>">
+            <button type="submit" name="update">Update</button>
+            <?php } else { ?>
+
             <button type="submit" name="create">Create</button>
+
+            <?php } ?>
+
             <button type="reset">Clear</button>
           </div>
         </form>
@@ -126,24 +139,46 @@ A173630
           <td style="width: 10%;">Phone No</td>
           <td style="width: 10%"></td>
         </tr>
+        <?php
+        // Read
+        try {
+          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a173630_pt2");
+          $stmt->execute();
+          $result = $stmt->fetchAll();
+        }
+        catch(PDOException $e){
+              echo "Error: " . $e->getMessage();
+        }
+        foreach($result as $readrow) {
+        ?>
         <tr>
-          <td>SS01</td>
-          <td>Ali</td>
-          <td>0134446563</td>
+          <td><?php echo $readrow['fld_staff_id']; ?></td>
+          <td><?php echo $readrow['fld_staff_name']; ?></td>
+          <td><?php echo $readrow['fld_staff_phone']; ?></td>
           <td>
-            <a href="staffs.php">Edit</a>
-            <a href="staffs.php">Delete</a>
+            <a href="staffs.php?edit=<?php echo $readrow['fld_staff_id']; ?>">Edit</a>
+            <a href="staffs.php?delete=<?php echo $readrow['fld_staff_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
           </td>
         </tr>
-        <tr>
-          <td>SS02</td>
-          <td>Abu</td>
-          <td>0191237654</td>
-          <td>
-            <a href="staffs.php">Edit</a>
-            <a href="staffs.php">Delete</a>
-          </td>
-        </tr>
+        <?php
+        }
+        if (!isset($_GET['edit'])){
+          $id = ltrim($readrow['fld_staff_id'], 'SS')+1;
+          $id = 'SS'.str_pad($id,2,"0",STR_PAD_LEFT);
+        }
+        $conn = null;
+        ?>
+        <script type="text/javascript">
+          if("<?php echo $id ?>" !== null && "<?php echo $id ?>" !== ""){
+            var sid = document.getElementById("sid");
+            sid.value = "<?php echo $id ?>";
+            sid.readOnly = true;
+          }
+
+        </script>
+
       </table>
     </div>
 </body>
