@@ -16,7 +16,7 @@ if (isset($_POST['create'])) {
       $stmt->bindParam(':sid', $sid, PDO::PARAM_STR);
       $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
          
-      //$oid = uniqid('O', true);
+      // $oid = uniqid('O', true);
       $oid = $_POST['order_id'];
       $sid = $_POST['sid'];
       $cid = $_POST['cid'];

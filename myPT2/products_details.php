@@ -12,6 +12,7 @@ A173630
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -33,7 +34,7 @@ A173630
     form {
         /* Center the form on the page */
         /* margin: 0 auto; */
-        width: 500px;
+        width: 700px;
         /* Form outline */
         padding: 1em;
     }
@@ -53,6 +54,12 @@ A173630
       display: inline-block;
       width: 160px;
       text-align: left;
+    }
+
+    .pname {
+        display: inline-block;
+        width: auto;
+        text-align: left;
     }
 </style>
 
@@ -101,7 +108,7 @@ A173630
         <table border="1" style="width: 70%;">
             <tr>
                 <td style="width: 40%; vertical-align: top; text-align: left;">
-                    <img src="products/<?php echo $readrow['fld_product_image'] ?>" width="100%" height="auto">
+                    <img src="products/<?php echo $readrow['fld_product_id'] ?>.jpg" width="100%" height="auto">
                 </td>
                 <td>
                     <form action="products_details.php" method="post">
@@ -112,7 +119,7 @@ A173630
                             </li>
                             <li>
                                 <label>Name</label>
-                                <label><?php echo $readrow['fld_product_name'] ?></label>
+                                <label class="pname" ><?php echo $readrow['fld_product_name'] ?></label>
                             </li>
                             <li>
                                 <label>Price (RM)</label>

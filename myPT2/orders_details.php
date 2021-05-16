@@ -3,11 +3,16 @@ Muhammad Syazili bin Juhari
 A173630
 -->
 
+<?php
+  include_once 'orders_details_crud.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -118,24 +123,41 @@ A173630
     <div id="header" class="header">
         <h1 align="center">Order Details</h1>
     </div>
+
+     <?php
+      try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare("SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2 WHERE tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id AND tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id AND fld_order_id = :order_id");
+        $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
+        $oid = $_GET['order_id'];
+        $stmt->execute();
+        $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+      catch(PDOException $e) {
+          echo "Error: " . $e->getMessage();
+      }
+      $conn = null;
+      ?>
+
     <div class="order-details" style="margin: 0 10%">
         <form action="orders_details.php" method="post">
           <ul>
               <li>
                   <label>Order ID</label>
-                  <label>OID01</label>
+                  <label><?php echo $readrow['fld_order_id'] ?></label>
               </li>
               <li>
                   <label>Order Date</label>
-                  <label>04//04/2021</label>
+                  <label><?php echo $readrow['fld_order_date'] ?></label>
               </li>
               <li>
-                  <label>Staff ID</label>
-                  <label>SC01</label>
+                  <label>Staff</label>
+                  <label><?php echo $readrow['fld_staff_name'] ?></label>
               </li>
               <li>
-                  <label>Customer ID</label>
-                  <label>CC02</label>
+                  <label>Customer</label>
+                  <label><?php echo $readrow['fld_customer_name'] ?></label>
               </li>
           </ul>
         </form>
@@ -144,23 +166,33 @@ A173630
     <div class="form-qty">
       <form action="orders_details.php" method="post">
         <label>Product</label>
-          <select style="margin-left: 16px " name="pid">
-              <option disabled selected>Select</option>
-              <option value="SID01">Fed Malay States 1900 $1 Green & Pale Green SG23</option>
-              <option value="SID02">Fed of Malay States 1904 10c Grey-Brown & Claret SG43</option>
-              <option value="SID06">Hawaii 1863 1c Black-Greyish SG12 Sc15</option>
-              <option value="SID38">Newfoundland 1857 2d Scarlet-Vermilion SG2</option>
-              <option value="SID14">Hawaii 1863 2c Pale Rose SG20 Sc27 Litho Horiz Laid Paper</option>
-              <option value="SID22">Australia 1914 5d Chestnut SG022</option>
-              <option value="SID17">China Shanghai 1866 6ca Red-Brown SG18</option>
-              <option value="SID29">Queensland 1860 1d Carmine-Rose SG1</option>
-              <option value="SID41">GB 1915 10s Deep Blue SG411 D.L.R</option>
-              <option value="SID42">India 1855 4d Blue & Red SG21 Head III Frame I V.F.U 4</option>
+          <select style="margin-left: 16px " name="product_id">
+              <option disabled selected value="">Select</option>
+              <?php
+              try {
+                $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+              }
+              catch(PDOException $e){
+                    echo "Error: " . $e->getMessage();
+              }
+              foreach($result as $productrow) {
+              ?>
+                <option value="<?php echo $productrow['fld_product_id']; ?>"><?php echo $productrow['fld_product_name']; ?></option>
+              <?php
+              }
+              $conn = null;
+
+              ?>
           </select>
           <label>Quantity</label>
-          <input style="margin-left: 16px" name="quantity" type="number">
+          <input style="margin-left: 16px" name="quantity" type="number" required>
           <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
-            <button type="submit" name="add">Add</button>
+            <input name="order_id" type="hidden" value="<?php echo $readrow['fld_order_id'] ?>">
+            <button type="submit" name="addproduct">Add</button>
             <button type="reset">Clear</button>
           </div>
       </form>
@@ -169,37 +201,47 @@ A173630
     <div style="display: flex; align-items: center; justify-content: center;">
       <table border="1" style="width: 60%;">
         <tr>
-          <td style="width: 4%;">Order ID</td>
+           <td style="width: 9%;">Order Detail ID</td>
+          <td style="width: 5%;">Order ID</td>
           <td style="width: 7%;">Product ID</td>
           <td style="width: 40%;">Name</td>
           <td style="width: 5%;">Quantity</td>
-          <td style="width: 10%;">Price (RM)</td>
           <td style="width: 10%"></td>
         </tr>
-        <tr>
-          <td>OID01</td>
-          <td>SID41</td>
-          <td>GB 1915 10s Deep Blue SG411 D.L.R</td>
-          <td>1</td>
-          <td align="right">1915.00</td>
-          <td>
-            <a href="orders_details.php">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <td>OID02</td>
-          <td>SID22</td>
-          <td>Australia 1914 5d Chestnut SG022</td>
-          <td>2</td>
-          <td align="right">206.61</td>
-          <td>
-            <a href="orders_details.php">Delete</a>
-          </td>
-        </tr>
+         <?php
+          try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT * FROM tbl_orders_details_a173630, tbl_products_a173630_pt2 WHERE tbl_orders_details_a173630.fld_product_id = tbl_products_a173630_pt2.fld_product_id AND fld_order_id = :order_id");
+            $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
+            $oid = $_GET['order_id'];
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+          }
+          catch(PDOException $e){
+                echo "Error: " . $e->getMessage();
+          }
+          foreach($result as $detailrow) {
+          ?>
+          <tr>
+            <td><?php echo $detailrow['fld_order_detail_id']; ?></td>
+            <td><?php echo $detailrow['fld_order_id']; ?></td>
+            <td><?php echo $detailrow['fld_product_id']; ?></td>
+            <td><?php echo $detailrow['fld_product_name']; ?></td>
+            <td><?php echo $detailrow['fld_product_qty']; ?></td>
+            <td>
+              <a href="orders_details.php?delete=<?php echo $detailrow['fld_order_detail_id']; ?>&order_id=<?php echo $_GET['order_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+            </td>
+          </tr>
+          <?php
+          }
+          $conn = null;
+          ?>
+          
       </table>
     </div>
     <div class="invoice" style="margin: auto; display: flex; align-items: center; justify-content: center;">
-      <button onclick="document.location='invoice.php'" name="generate-invoice">Generate Invoice</button>
+      <button onclick="document.location='invoice.php?order_id=<?php echo $_GET['order_id']; ?>'" name="generate-invoice">Generate Invoice</button>
     </div>
 </body>
 </html>

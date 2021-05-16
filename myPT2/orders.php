@@ -12,6 +12,7 @@ A173630
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -122,9 +123,9 @@ A173630
               <input type="date" id="odate" name="order_date" readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_date']; ?>">
             </li>
             <li>
-              <label for="sid">Staff ID</label>
-              <select name="sid">
-                <option disabled selected>Select</option>
+              <label for="sid">Staff</label>
+              <select name="sid" required>
+                <option disabled selected value="">Select</option>
                 <?php
                 try {
                   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -150,20 +151,20 @@ A173630
               </select>
             </li>
             <li>
-              <label for="cid">Customer ID</label>
-              <select name="cid">
-                <option disabled selected>Select</option>
+              <label for="cid">Customer</label>
+              <select name="cid" required>
+                <option disabled selected value="">Select</option>
                 <?php
-                //try {
+                try {
                   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     $stmt = $conn->prepare("SELECT * FROM tbl_customers_a173630_pt2");
                   $stmt->execute();
                   $result = $stmt->fetchAll();
-                //}
-                //catch(PDOException $e){
-                     // echo "Error: " . $e->getMessage();
-                //}
+                }
+                catch(PDOException $e){
+                     echo "Error: " . $e->getMessage();
+                }
                 foreach($result as $custrow) {
                 ?>
                   <?php if((isset($_GET['edit'])) && ($editrow['fld_customer_id']==$custrow['fld_customer_id'])) { ?>
@@ -205,7 +206,7 @@ A173630
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2 WHERE ";
             $sql = $sql."tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id and ";
-            $sql = $sql."tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id";
+            $sql = $sql."tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id ORDER BY fld_order_id ASC" ;
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll();
@@ -221,7 +222,7 @@ A173630
             <td><?php echo $orderrow['fld_staff_name']; ?></td>
             <td><?php echo $orderrow['fld_customer_name']; ?></td>
             <td>
-              <a href="orders_details.php?oid=<?php echo $orderrow['fld_order_id']; ?>">Details</a>
+              <a href="orders_details.php?order_id=<?php echo $orderrow['fld_order_id']; ?>">Details</a>
               <a href="orders.php?edit=<?php echo $orderrow['fld_order_id']; ?>">Edit</a>
               <a href="orders.php?delete=<?php echo $orderrow['fld_order_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
             </td>
@@ -230,10 +231,10 @@ A173630
           }
           if (!isset($_GET['edit']) && $stmt->rowCount()>0){
             $id = ltrim($orderrow['fld_order_id'], 'O')+1;
-            $id = 'O'.str_pad($id,2,"0",STR_PAD_LEFT);
+            $id = 'O'.str_pad($id,4,"0",STR_PAD_LEFT);
           }
           elseif(!isset($_GET['edit'])){
-            $id = 'O'.str_pad(1,2,"0",STR_PAD_LEFT);
+            $id = 'O'.str_pad(1,4,"0",STR_PAD_LEFT);
           }
           $conn = null;
           ?> 

@@ -3,11 +3,16 @@ Muhammad Syazili bin Juhari
 A173630
 -->
 
+<?php
+  include_once 'database.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -81,16 +86,31 @@ A173630
         <h4 align="center">Universiti Kebangsaan Malaysia<br>43600 UKM<br>Bangi, Selangor</h4>
     </div>
     <hr>
+    <?php
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $conn->prepare("SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2, tbl_orders_details_a173630 WHERE tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id AND tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id AND tbl_orders_a173630.fld_order_id = tbl_orders_details_a173630.fld_order_id AND tbl_orders_a173630.fld_order_id = :order_id");
+      $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
+      $oid = $_GET['order_id'];
+      $stmt->execute();
+      $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
+      }
+    catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    ?>
     <div class="order" style="margin: 0 10%">
         <form action="invoice.php" method="post">
           <ul>
               <li>
                   <label>Order ID</label>
-                  <label>OID01</label>
+                  <label><?php echo $readrow['fld_order_id'] ?></label>
               </li>
               <li>
                   <label>Order Date</label>
-                  <label>04//04/2021</label>
+                  <label><?php echo $readrow['fld_order_date'] ?></label>
               </li>
           </ul>
         <!-- <hr style="margin: 20px 0;"> -->
@@ -102,15 +122,15 @@ A173630
           <ul>
               <li>
                   <label>Staff</label>
-                  <label>Ali</label>
+                  <label><?php echo $readrow['fld_staff_name'] ?></label>
               </li>
               <li>
                   <label>Customer</label>
-                  <label>Ahmad Albab</label>
+                  <label><?php echo $readrow['fld_customer_name'] ?></label>
               </li>
               <li>
                   <label>Date</label>
-                  <label>Today</label>
+                  <label><?php echo date("d M Y"); ?></label>
               </li>
           </ul>
         </form>
@@ -119,29 +139,47 @@ A173630
     <div style="display: flex; align-items: center; justify-content: center;">
       <table border="1" style="width: 60%;">
         <tr>
-          <td style="width: 4%;">Order ID</td>
+          <td style="width: 2%;">No</td>
+          <td style="width: 5%;">Order ID</td>
           <td style="width: 7%;">Product ID</td>
           <td style="width: 40%;">Name</td>
           <td style="width: 5%;">Quantity</td>
           <td style="width: 10%;">Price (RM)</td>
         </tr>
+         <?php
+          $grandtotal = 0;
+          $counter = 1;
+          try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $stmt = $conn->prepare("SELECT * FROM tbl_orders_details_a173630, tbl_products_a173630_pt2 WHERE tbl_orders_details_a173630.fld_product_id = tbl_products_a173630_pt2.fld_product_id AND fld_order_id = :order_id");
+            $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
+            $oid = $_GET['order_id'];
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+          }
+          catch(PDOException $e){
+                echo "Error: " . $e->getMessage();
+          }
+          foreach($result as $detailrow) {
+          ?>
         <tr>
-          <td>OID01</td>
-          <td>SID41</td>
-          <td>GB 1915 10s Deep Blue SG411 D.L.R</td>
-          <td>1</td>
-          <td align="right">1915.00</td>
+          <td><?php echo $counter; ?></td>
+          <td><?php echo $detailrow['fld_order_id']; ?></td>
+          <td><?php echo $detailrow['fld_product_id']; ?></td>
+          <td><?php echo $detailrow['fld_product_name']; ?></td>
+          <td><?php echo $detailrow['fld_product_qty']; ?></td>
+          <td><?php echo $detailrow['fld_product_price']*$detailrow['fld_product_qty']; ?></td>
         </tr>
+        <?php
+          $grandtotal = $grandtotal + $detailrow['fld_product_price']*$detailrow['fld_product_qty'];
+          $counter++;
+        } // while
+        $conn = null;
+        ?>
         <tr>
-          <td>OID02</td>
-          <td>SID22</td>
-          <td>Australia 1914 5d Chestnut SG022</td>
-          <td>2</td>
-          <td align="right">206.61</td>
-        </tr>
-        <tr>
-          <td colspan="4" align="right">Total Price (RM)</td>
-          <td align="right">2328.22</td>
+          <td colspan="5" align="right">Total Price (RM)</td>
+           <td><?php echo $grandtotal ?></td>
         </tr>
       </table>
     </div>

@@ -12,6 +12,7 @@ A173630
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -102,20 +103,20 @@ A173630
           <ul>
             <li>
               <label for="pid">Product ID</label>
-              <input type="text" id="pid" name="product_id" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_id']; ?>">
+              <input type="text" id="pid" name="product_id" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_id']; ?>">
             </li>
             <li>
               <label for="pname">Name</label>
-              <input type="text" id="pname" name="product_name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_name']; ?>">
+              <input type="text" id="pname" name="product_name" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_name']; ?>">
             </li>
             <li>
               <label for="price">Price (RM)</label>
-              <input type="number" id="price" name="product_price" min="0.00" max="1000000.00" step="0.01" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_price']; ?>">
+              <input type="number" id="price" name="product_price" min="0.00" max="1000000.00" step="0.01" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_price']; ?>">
             </li>
             <li>
               <label for="region">Region</label>
               <select id="region" name="product_region">
-                <option disabled selected>Select</option>
+                <option disabled selected value="">Select</option>
                 <?php
                 $countries =
                 array(
@@ -371,7 +372,7 @@ A173630
             <li>
               <label for="year">Year</label>
               <select id="year" name="product_year">
-                <option disabled selected>Select</option>
+                <option disabled selected value="">Select</option>
                 <?php
                   $years = array_combine(range(date("Y"), 1800), range(date("Y"), 1800));
                   foreach ($years as $year) {
@@ -384,7 +385,7 @@ A173630
             <li>
               <label for="era">Era</label>
               <select id="era" name="product_era">
-                <option disabled selected>Select</option>
+                <option disabled selected value="">Select</option>
                 <option value="edward-vii" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Edward VII") echo "selected"; ?>>Edward VII</option>
                 <option value="george-v" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="George V") echo "selected"; ?>>George V</option>
                 <option value="victoria" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Victoria") echo "selected"; ?>>Victoria</option>
@@ -394,7 +395,7 @@ A173630
             <li>
               <label for="condition">Condition</label>
               <select id="condition" name="product_condition">
-                <option disabled selected>Select</option>
+                <option disabled selected value="">Select</option>
                 <option value="mint-no-gum" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint No Gum") echo "selected"; ?>>Mint No Gum</option>
                 <option value="mint-hinged" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint Hinged") echo "selected"; ?>>Mint Hinged</option>
                 <option value="used" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Used") echo "selected"; ?>>Used</option>
@@ -410,16 +411,16 @@ A173630
     </div>
     <hr>
     <div style="display: flex; align-items: center; justify-content: center;">
-      <table border="1" style="width: 90%;">
+      <table border="1" style="width: 100%;">
         <tr>
           <td style="width: 4%;">ID</td>
-          <td style="width: 40%;">Name</td>
-          <td style="width: 10%;">Price (RM)</td>
-          <td style="width: 10%;">Region</td>
-          <td style="width: 6%;">Year</td>
-          <td style="width: 10%">Era</td>
-          <td style="width: 10%">Condition</td>
-          <td style="width: 20%"></td>
+          <td style="width: 50%;">Name</td>
+          <td style="width: 8%;">Price (RM)</td>
+          <td style="width: 8%;">Region</td>
+          <td style="width: 4%;">Year</td>
+          <td style="width: 8%">Era</td>
+          <td style="width: 8%">Condition</td>
+          <td style="width: 15%"></td>
         </tr>
 
         <?php
@@ -445,7 +446,6 @@ A173630
           <td><?php echo $readrow['fld_product_year']; ?></td>
           <td><?php echo $readrow['fld_product_era']; ?></td>
           <td><?php echo $readrow['fld_product_condition']; ?></td>
-          <td><?php echo $readrow['fld_product_region']; ?></td>
           <td>
             <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>">Details</a>
             <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>">Edit</a>
@@ -459,6 +459,9 @@ A173630
           $id = ltrim($readrow['fld_product_id'], 'SID')+1;
           $id = 'SID'.str_pad($id,2,"0",STR_PAD_LEFT);
         }
+        elseif(!isset($_GET['edit'])){
+            $id = 'O'.str_pad(1,2,"0",STR_PAD_LEFT);
+          }
         $conn = null;
         ?>
         <script type="text/javascript">

@@ -12,6 +12,7 @@ A173630
 
 <head>
     <title>Rare Stamps Ordering System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
     <meta charset="UTF-8">
 </head>
 
@@ -107,11 +108,11 @@ A173630
             </li>
             <li>
               <label for="cname">Name</label>
-              <input type="text" id="cname" name="customer_name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_name']; ?>">
+              <input type="text" id="cname" name="customer_name" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_name']; ?>">
             </li>
             <li>
               <label for="cphone">Phone No</label>
-              <input type="tel" id="cphone" name="customer_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" placeholder="+60##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_phone']; ?>">
+              <input type="tel" id="cphone" name="customer_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" placeholder="+60##-#######" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_phone']; ?>">
             </li>
           <hr style="margin: 20px 0;">
 
