@@ -13,7 +13,7 @@ class MyGuestBook extends CI_Controller {
     }
  
     function index($error = "") {
-      $data['title'] = 'MyGuestBook';
+      $data['title'] = 'My GuestBook';
       $data['error'] = $error;
       $this->load->view('mainmenu', $data);
     }
@@ -32,6 +32,8 @@ class MyGuestBook extends CI_Controller {
     }
 
     public function create() {
+      $data['title'] = 'Add Comments';
+
       if ($this->input->post('form-submitted') == "add") {
           $name = $this->input->post("name");
           $email = $this->input->post("email");
@@ -42,7 +44,7 @@ class MyGuestBook extends CI_Controller {
           $this->form_validation->set_rules("comment", "Comment", "trim|required");
 
           if ($this->form_validation->run() == FALSE) {
-              $this->load->view('form');
+              $this->load->view('form', $data);
           }
           else {
               $postdate = date("Y-m-d",time());
@@ -61,11 +63,12 @@ class MyGuestBook extends CI_Controller {
           }
       }
       else {
-          $this->load->view('form');  
+          $this->load->view('form', $data);  
       }
     }
 
     public function edit() {
+      $data['title'] = 'Edit Comments';
   
       if ($this->input->post('form-submitted') == "edit") {
           $id = $this->uri->segment(3);
