@@ -386,9 +386,9 @@ A173630
               <label for="era">Era</label>
               <select id="era" name="product_era">
                 <option disabled selected value="">Select</option>
-                <option value="edward-vii" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Edward VII") echo "selected"; ?>>Edward VII</option>
-                <option value="george-v" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="George V") echo "selected"; ?>>George V</option>
-                <option value="victoria" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Victoria") echo "selected"; ?>>Victoria</option>
+                <option value="Edward VII" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Edward VII") echo "selected"; ?>>Edward VII</option>
+                <option value="George V" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="George V") echo "selected"; ?>>George V</option>
+                <option value="Victoria" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Victoria") echo "selected"; ?>>Victoria</option>
               </select>
             </li>
 
@@ -396,22 +396,31 @@ A173630
               <label for="condition">Condition</label>
               <select id="condition" name="product_condition">
                 <option disabled selected value="">Select</option>
-                <option value="mint-no-gum" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint No Gum") echo "selected"; ?>>Mint No Gum</option>
-                <option value="mint-hinged" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint Hinged") echo "selected"; ?>>Mint Hinged</option>
-                <option value="used" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Used") echo "selected"; ?>>Used</option>
+                <option value="Mint No Gum" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint No Gum") echo "selected"; ?>>Mint No Gum</option>
+                <option value="Mint Hinged" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint Hinged") echo "selected"; ?>>Mint Hinged</option>
+                <option value="Used" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Used") echo "selected"; ?>>Used</option>
               </select>
             </li>
           </ul>
           <hr style="margin: 20px 0;">
           <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
+
+            <?php if (isset($_GET['edit'])) { ?>
+            <input type="hidden" name="oldpid" value="<?php echo $editrow['fld_product_id']; ?>">
+            <button type="submit" name="update">Update</button>
+            <?php } else { ?>
+
             <button type="submit" name="create">Create</button>
+
+            <?php } ?>
+
             <button type="reset">Clear</button>
           </div>
         </form>
     </div>
     <hr>
     <div style="display: flex; align-items: center; justify-content: center;">
-      <table border="1" style="width: 100%;">
+      <table border="1" style="width: 70%;">
         <tr>
           <td style="width: 4%;">ID</td>
           <td style="width: 50%;">Name</td>

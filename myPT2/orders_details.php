@@ -189,7 +189,7 @@ A173630
               ?>
           </select>
           <label>Quantity</label>
-          <input style="margin-left: 16px" name="quantity" type="number" required>
+          <input style="margin-left: 16px" name="quantity" type="number" min="1" required>
           <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
             <input name="order_id" type="hidden" value="<?php echo $readrow['fld_order_id'] ?>">
             <button type="submit" name="addproduct">Add</button>

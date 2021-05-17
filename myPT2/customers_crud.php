@@ -34,11 +34,12 @@ if (isset($_POST['update'])) {
    
   try {
  
-      $stmt = $conn->prepare("UPDATE tbl_customers_a173630_pt2 SET fld_customer_id = :customer_id, fld_customer_name = :customer_name, fld_customer_phone = :phone WHERE fld_customer_id = :oldcid");
+      $stmt = $conn->prepare("UPDATE tbl_customers_a173630_pt2 SET fld_customer_id = :customer_id, fld_customer_name = :customer_name, fld_customer_phone = :customer_phone WHERE fld_customer_id = :oldcid");
      
       $stmt->bindParam(':customer_id', $cid, PDO::PARAM_STR);
       $stmt->bindParam(':customer_name', $cname, PDO::PARAM_STR);
       $stmt->bindParam(':customer_phone', $cphone, PDO::PARAM_STR);
+      $stmt->bindParam(':oldcid', $oldcid, PDO::PARAM_STR);
          
       $cid = $_POST['customer_id'];
       $cname = $_POST['customer_name'];

@@ -55,13 +55,13 @@ if (isset($_POST['update'])) {
       $stmt->bindParam(':product_condition', $condition, PDO::PARAM_STR);
       $stmt->bindParam(':oldpid', $oldpid, PDO::PARAM_STR);
        
-      $pid = $_POST['pid'];
-      $name = $_POST['name'];
-      $price = $_POST['price'];
-      $brand =  $_POST['brand'];
-      $cond = $_POST['cond'];
-      $year = $_POST['year'];
-      $quantity = $_POST['quantity'];
+      $pid = $_POST['product_id'];
+      $name = $_POST['product_name'];
+      $price = $_POST['product_price'];
+      $region =  $_POST['product_region'];
+      $year = $_POST['product_year'];
+      $era = $_POST['product_era'];
+      $condition = $_POST['product_condition'];
       $oldpid = $_POST['oldpid'];
        
       $stmt->execute();
