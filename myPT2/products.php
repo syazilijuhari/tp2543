@@ -362,7 +362,7 @@ A173630
                 );
                 foreach($countries as $key => $value) {
                 ?>
-                  <option value="<?= $key ?>" title="<?= htmlspecialchars($value) ?>" <?php echo (isset($_GET['edit']) && $value == $editrow['fld_product_region']) ? "selected" : ""; ?>><?= htmlspecialchars($value) ?></option>
+                  <option value="<?= $value ?>" title="<?= htmlspecialchars($value) ?>" <?php echo (isset($_GET['edit']) && $value == $editrow['fld_product_region']) ? "selected" : ""; ?>><?= htmlspecialchars($value) ?></option>
                   <?php
                   }
                 ?>
