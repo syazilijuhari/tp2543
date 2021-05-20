@@ -68,8 +68,8 @@ $univ = array
 <input type="number" name="age" id="idage" min="0" max="100" step="1"><br>
      
 <label for="idsex">Sex:</label><br>
-<input type="radio" name="sex" id="idsex"  style="width: 5%; value="male">Male<br>
-<input type="radio" name="sex" id="idsex"  style="width: 5%; value="female">Female<br>
+<input type="radio" name="sex" id="idsex" style="width: 5%;" value="male">Male<br>
+<input type="radio" name="sex" id="idsex" style="width: 5%;" value="female">Female<br>
        
 <label for="idaddress">Address:</label><br>
 <textarea name="address" id="idaddress" cols="50" rows="5" placeholder="Insert your address"></textarea><br>
