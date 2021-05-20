@@ -53,8 +53,6 @@ $univ = array
       width: 50%;
     }
 
-
-
   </style>
  
 </head>
