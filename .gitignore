@@ -3,3 +3,5 @@
 sftp-config.json
 db.php
 database.php
+*.jpg
+*.png

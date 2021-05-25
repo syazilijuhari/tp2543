@@ -12,7 +12,7 @@ A173630
 
 <head>
     <title>Rare Stamps Ordering System</title>
-    <link rel="shortcut icon" type="image/x-icon" href="products/icon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <meta charset="UTF-8">
 </head>
 

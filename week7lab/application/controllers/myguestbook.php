@@ -13,7 +13,7 @@ class MyGuestBook extends CI_Controller {
     }
  
     function index($error = "") {
-      $data['title'] = 'My GuestBook';
+      $data['title'] = 'MyGuestBook';
       $data['error'] = $error;
       $this->load->view('mainmenu', $data);
     }

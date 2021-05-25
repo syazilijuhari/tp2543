@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="background-color: #b19870; border-color: #a88c60; border-radius: 0;">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,17 +8,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php">Rare Stamps</a>
+      <a class="navbar-brand" href="index.php" style="color: #2a2317;">Rare Stamps</a>
     </div>
  
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><a href="index.php">Home</a></li>
+      <li><a href="index.php" style="color: #2a2317;">Home</a></li>
     </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #2a2317;">Menu <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="products.php">Products</a></li>
             <li><a href="customers.php">Customers</a></li>
