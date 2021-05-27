@@ -11,112 +11,30 @@ A173630
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Rare Stamps Ordering System</title>
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
-    <meta charset="UTF-8">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
-
-<style>
-
-    .navbar {
-        font-size: 24px
-    }
-
-    .nav-link {
-        background-color: Transparent;
-        background-repeat:no-repeat;
-        border: none;
-        cursor:pointer;
-        overflow: hidden;
-        outline:none;
-    }
-
-    form {
-      /* Center the form on the page */
-      margin: 0 auto;
-      width: 500px;
-      /* Form outline */
-      padding: 1em;
-      border: 1px solid #CCC;
-      border-radius: 1em;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 12px;
-    }
-
-    form li+li {
-      margin-top: 1em;
-    }
-
-    label {
-      /* Uniform size & alignment */
-      display: inline-block;
-      width: 160px;
-      text-align: left;
-    }
-
-    input,
-    select {
-      /* To make sure that all text fields have the same font settings
-     By default, textareas have a monospace font */
-      /* font: 1em sans-serif; */
-
-      /* Uniform text field size */
-      width: 300px;
-      box-sizing: border-box;
-
-      /* Match form field borders */
-      border: 1px solid #999;
-    }
-
-    input:focus {
-      /* Additional highlight for focused elements */
-      border-color: #000;
-    }
-
-    .button {
-      /* Align buttons with the text fields */
-      padding-left: 90px;
-      /* same size as the label elements */
-    }
-
-    button {
-      /* This extra margin represent roughly the same space as the space
-     between the labels and their text fields */
-      margin-left: .5em;
-    }
-</style>
-
 <body>
-    <div id="nav" class="navbar">
-        <center>
-            <button class="nav-link">
-                <a href="index.php">Home</a> |
-            </button>
-            <button class="nav-link">
-                <a href="products.php">Products</a> |
-            </button>
-            <button class="nav-link">
-                <a href="customers.php">Customers</a> |
-            </button>
-            <button class="nav-link">
-                <a href="staffs.php">Staffs</a> |
-            </button>
-            <button class="nav-link">
-                <a href="orders.php">Orders</a>
-            </button>
-            <hr>
-        </center>
-    </div>
+<?php include_once 'nav_bar.php'; ?>
     <div class="form" style="margin: 0 10%">
         <form action="orders.php" method="post">
           <ul>
             <li>
               <label for="oid">Order ID</label>
-              <input type="text" id="oid" name="order_id" readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_id']; ?>">
+              <input type="text" id="oid" name="order_id" readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_id']; else echo sprintf('OID%02d',$nid); ?>">
             </li>
             <li>
               <label for="odate">Order Date</label>
@@ -227,25 +145,12 @@ A173630
               <a href="orders.php?delete=<?php echo $orderrow['fld_order_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
             </td>
           </tr>
+
           <?php
-          }
-          if (!isset($_GET['edit']) && $stmt->rowCount()>0){
-            $id = ltrim($orderrow['fld_order_id'], 'O')+1;
-            $id = 'O'.str_pad($id,4,"0",STR_PAD_LEFT);
-          }
-          elseif(!isset($_GET['edit'])){
-            $id = 'O'.str_pad(1,4,"0",STR_PAD_LEFT);
           }
           $conn = null;
           ?> 
-          <script type="text/javascript">
-
-            if("<?php echo $id ?>" !== null && "<?php echo $id ?>" !== ""){
-            var oid = document.getElementById("oid");
-            oid.value = "<?php echo $id ?>";
-            oid.readOnly = true;
-            }
-          </script>
+          
       </table>
     </div>
 </body>

@@ -99,6 +99,7 @@ if (isset($_GET['edit'])) {
       echo "Error: " . $e->getMessage();
   }
 }
- 
+  $nid = $conn->query("SELECT MAX(fld_order_id) AS LASTID FROM tbl_orders_a173630")->fetch()['LASTID'];
+  $nid = ltrim($nid, 'OID')+1;
   $conn = null;
 ?>

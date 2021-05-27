@@ -9,7 +9,6 @@ A173630
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,403 +26,451 @@ A173630
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
-  <?php include_once 'nav_bar.php'; ?>
-  <div class="container-fluid">
+<?php include_once 'nav_bar.php'; ?>
+<div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <div class="page-header">
         <h2>Create New Product</h2>
       </div>
 
-    <form action="products.php" method="post">
-    <div class="form-group">
-      <label for="productid" class="col-sm-3 control-label">ID</label>
-      <div class="col-sm-9">
-        <input type="text" id="pid" name="product_id" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_id']; ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="productname" class="col-sm-3 control-label">Name</label>
-      <div class="col-sm-9">
-        <input type="text" id="pname" name="product_name" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_name']; ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="productprice" class="col-sm-3 control-label">Price (RM)</label>
-      <div class="col-sm-9">
-          <input type="number" id="price" name="product_price" min="0.00" max="1000000.00" step="0.01" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_price']; ?>">
+      <form action="products.php" method="post" class="form-horizontal">
+        <div class="form-group">
+          <label for="productid" class="col-sm-3 control-label">ID</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" id="pid" name="product_id" required readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_id']; else echo sprintf('SID%02d',$nid); ?>">
+          </div>
         </div>
-      </div>
 
-    <div class="form-group">
-      <label for="productregion" class="col-sm-3 control-label">Region</label>
-      <div class="col-sm-9">
-        <select id="region" name="product_region">
-          <option disabled selected value="">Select</option>
-          <?php
-          $countries =
-          array(
-          "AF" => "Afghanistan",
-          "AL" => "Albania",
-          "DZ" => "Algeria",
-          "AS" => "American Samoa",
-          "AD" => "Andorra",
-          "AO" => "Angola",
-          "AI" => "Anguilla",
-          "AQ" => "Antarctica",
-          "AG" => "Antigua and Barbuda",
-          "AR" => "Argentina",
-          "AM" => "Armenia",
-          "AW" => "Aruba",
-          "AU" => "Australia",
-          "AT" => "Austria",
-          "AZ" => "Azerbaijan",
-          "BS" => "Bahamas",
-          "BH" => "Bahrain",
-          "BD" => "Bangladesh",
-          "BB" => "Barbados",
-          "BY" => "Belarus",
-          "BE" => "Belgium",
-          "BZ" => "Belize",
-          "BJ" => "Benin",
-          "BM" => "Bermuda",
-          "BT" => "Bhutan",
-          "BO" => "Bolivia",
-          "BA" => "Bosnia and Herzegovina",
-          "BW" => "Botswana",
-          "BV" => "Bouvet Island",
-          "BR" => "Brazil",
-          "IO" => "British Indian Ocean Territory",
-          "BN" => "Brunei Darussalam",
-          "BG" => "Bulgaria",
-          "BF" => "Burkina Faso",
-          "BI" => "Burundi",
-          "KH" => "Cambodia",
-          "CM" => "Cameroon",
-          "CA" => "Canada",
-          "CV" => "Cape Verde",
-          "KY" => "Cayman Islands",
-          "CF" => "Central African Republic",
-          "TD" => "Chad",
-          "CL" => "Chile",
-          "CN" => "China",
-          "CX" => "Christmas Island",
-          "CC" => "Cocos (Keeling) Islands",
-          "CO" => "Colombia",
-          "KM" => "Comoros",
-          "CG" => "Congo",
-          "CD" => "Congo, the Democratic Republic of the",
-          "CK" => "Cook Islands",
-          "CR" => "Costa Rica",
-          "CI" => "Cote D'Ivoire",
-          "HR" => "Croatia",
-          "CU" => "Cuba",
-          "CY" => "Cyprus",
-          "CZ" => "Czech Republic",
-          "DK" => "Denmark",
-          "DJ" => "Djibouti",
-          "DM" => "Dominica",
-          "DO" => "Dominican Republic",
-          "EC" => "Ecuador",
-          "EG" => "Egypt",
-          "SV" => "El Salvador",
-          "GQ" => "Equatorial Guinea",
-          "ER" => "Eritrea",
-          "EE" => "Estonia",
-          "ET" => "Ethiopia",
-          "FK" => "Falkland Islands (Malvinas)",
-          "FO" => "Faroe Islands",
-          "FJ" => "Fiji",
-          "FI" => "Finland",
-          "FR" => "France",
-          "GF" => "French Guiana",
-          "PF" => "French Polynesia",
-          "TF" => "French Southern Territories",
-          "GA" => "Gabon",
-          "GM" => "Gambia",
-          "GE" => "Georgia",
-          "DE" => "Germany",
-          "GH" => "Ghana",
-          "GI" => "Gibraltar",
-          "GR" => "Greece",
-          "GL" => "Greenland",
-          "GD" => "Grenada",
-          "GP" => "Guadeloupe",
-          "GU" => "Guam",
-          "GT" => "Guatemala",
-          "GN" => "Guinea",
-          "GW" => "Guinea-Bissau",
-          "GY" => "Guyana",
-          "HT" => "Haiti",
-          "HM" => "Heard Island and Mcdonald Islands",
-          "VA" => "Holy See (Vatican City State)",
-          "HN" => "Honduras",
-          "HK" => "Hong Kong",
-          "HU" => "Hungary",
-          "IS" => "Iceland",
-          "IN" => "India",
-          "ID" => "Indonesia",
-          "IR" => "Iran, Islamic Republic of",
-          "IQ" => "Iraq",
-          "IE" => "Ireland",
-          "IL" => "Israel",
-          "IT" => "Italy",
-          "JM" => "Jamaica",
-          "JP" => "Japan",
-          "JO" => "Jordan",
-          "KZ" => "Kazakhstan",
-          "KE" => "Kenya",
-          "KI" => "Kiribati",
-          "KP" => "Korea, Democratic People's Republic of",
-          "KR" => "Korea, Republic of",
-          "KW" => "Kuwait",
-          "KG" => "Kyrgyzstan",
-          "LA" => "Lao People's Democratic Republic",
-          "LV" => "Latvia",
-          "LB" => "Lebanon",
-          "LS" => "Lesotho",
-          "LR" => "Liberia",
-          "LY" => "Libyan Arab Jamahiriya",
-          "LI" => "Liechtenstein",
-          "LT" => "Lithuania",
-          "LU" => "Luxembourg",
-          "MO" => "Macao",
-          "MK" => "Macedonia, the Former Yugoslav Republic of",
-          "MG" => "Madagascar",
-          "MW" => "Malawi",
-          "MY" => "Malaysia",
-          "MV" => "Maldives",
-          "ML" => "Mali",
-          "MT" => "Malta",
-          "MH" => "Marshall Islands",
-          "MQ" => "Martinique",
-          "MR" => "Mauritania",
-          "MU" => "Mauritius",
-          "YT" => "Mayotte",
-          "MX" => "Mexico",
-          "FM" => "Micronesia, Federated States of",
-          "MD" => "Moldova, Republic of",
-          "MC" => "Monaco",
-          "MN" => "Mongolia",
-          "MS" => "Montserrat",
-          "MA" => "Morocco",
-          "MZ" => "Mozambique",
-          "MM" => "Myanmar",
-          "NA" => "Namibia",
-          "NR" => "Nauru",
-          "NP" => "Nepal",
-          "NL" => "Netherlands",
-          "AN" => "Netherlands Antilles",
-          "NC" => "New Caledonia",
-          "NZ" => "New Zealand",
-          "NI" => "Nicaragua",
-          "NE" => "Niger",
-          "NG" => "Nigeria",
-          "NU" => "Niue",
-          "NF" => "Norfolk Island",
-          "MP" => "Northern Mariana Islands",
-          "NO" => "Norway",
-          "OM" => "Oman",
-          "PK" => "Pakistan",
-          "PW" => "Palau",
-          "PS" => "Palestinian Territory, Occupied",
-          "PA" => "Panama",
-          "PG" => "Papua New Guinea",
-          "PY" => "Paraguay",
-          "PE" => "Peru",
-          "PH" => "Philippines",
-          "PN" => "Pitcairn",
-          "PL" => "Poland",
-          "PT" => "Portugal",
-          "PR" => "Puerto Rico",
-          "QA" => "Qatar",
-          "RE" => "Reunion",
-          "RO" => "Romania",
-          "RU" => "Russian Federation",
-          "RW" => "Rwanda",
-          "SH" => "Saint Helena",
-          "KN" => "Saint Kitts and Nevis",
-          "LC" => "Saint Lucia",
-          "PM" => "Saint Pierre and Miquelon",
-          "VC" => "Saint Vincent and the Grenadines",
-          "WS" => "Samoa",
-          "SM" => "San Marino",
-          "ST" => "Sao Tome and Principe",
-          "SA" => "Saudi Arabia",
-          "SN" => "Senegal",
-          "CS" => "Serbia and Montenegro",
-          "SC" => "Seychelles",
-          "SL" => "Sierra Leone",
-          "SG" => "Singapore",
-          "SK" => "Slovakia",
-          "SI" => "Slovenia",
-          "SB" => "Solomon Islands",
-          "SO" => "Somalia",
-          "ZA" => "South Africa",
-          "GS" => "South Georgia and the South Sandwich Islands",
-          "ES" => "Spain",
-          "LK" => "Sri Lanka",
-          "SD" => "Sudan",
-          "SR" => "Suriname",
-          "SJ" => "Svalbard and Jan Mayen",
-          "SZ" => "Swaziland",
-          "SE" => "Sweden",
-          "CH" => "Switzerland",
-          "SY" => "Syrian Arab Republic",
-          "TW" => "Taiwan, Province of China",
-          "TJ" => "Tajikistan",
-          "TZ" => "Tanzania, United Republic of",
-          "TH" => "Thailand",
-          "TL" => "Timor-Leste",
-          "TG" => "Togo",
-          "TK" => "Tokelau",
-          "TO" => "Tonga",
-          "TT" => "Trinidad and Tobago",
-          "TN" => "Tunisia",
-          "TR" => "Turkey",
-          "TM" => "Turkmenistan",
-          "TC" => "Turks and Caicos Islands",
-          "TV" => "Tuvalu",
-          "UG" => "Uganda",
-          "UA" => "Ukraine",
-          "AE" => "United Arab Emirates",
-          "GB" => "United Kingdom",
-          "US" => "United States",
-          "UM" => "United States Minor Outlying Islands",
-          "UY" => "Uruguay",
-          "UZ" => "Uzbekistan",
-          "VU" => "Vanuatu",
-          "VE" => "Venezuela",
-          "VN" => "Viet Nam",
-          "VG" => "Virgin Islands, British",
-          "VI" => "Virgin Islands, U.s.",
-          "WF" => "Wallis and Futuna",
-          "EH" => "Western Sahara",
-          "YE" => "Yemen",
-          "ZM" => "Zambia",
-          "ZW" => "Zimbabwe"
-          );
-          foreach($countries as $key => $value) {
-          ?>
-            <option value="<?= $value ?>" title="<?= htmlspecialchars($value) ?>" <?php echo (isset($_GET['edit']) && $value == $editrow['fld_product_region']) ? "selected" : ""; ?>><?= htmlspecialchars($value) ?></option>
-            <?php
-            }
-          ?>
-        </select>
+        <div class="form-group">
+          <label for="productname" class="col-sm-3 control-label">Name</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Product Name" id="pname" name="product_name" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_name']; ?>">
+          </div>
         </div>
-      </div>
 
-        Year
-        <select id="year" name="product_year">
-          <option disabled selected value="">Select</option>
-          <?php
-            $years = array_combine(range(date("Y"), 1800), range(date("Y"), 1800));
-            foreach ($years as $year) {
-              echo "<option value='$year'".((isset($_GET['edit']) && $year == $editrow['fld_product_year']) ? "selected" : "").">{$year}</option>";
-            }
-          ?>
-        </select>
+        <div class="form-group">
+          <label for="productprice" class="col-sm-3 control-label">Price</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="number" placeholder="Product Price" id="price" name="product_price" min="0.00" max="1000000.00" step="0.01" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_price']; ?>">
+          </div>
+        </div>
 
-        Era
-        <select id="era" name="product_era">
-          <option disabled selected value="">Select</option>
-          <option value="Edward VII" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Edward VII") echo "selected"; ?>>Edward VII</option>
-          <option value="George V" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="George V") echo "selected"; ?>>George V</option>
-          <option value="Victoria" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Victoria") echo "selected"; ?>>Victoria</option>
-        </select>
+        <div class="form-group">
+          <label for="productregion" class="col-sm-3 control-label">Region</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="region" name="product_region" required>
+              <option disabled selected value="">Select</option>
+              <?php
+              $countries =
+              array(
+              "AF" => "Afghanistan",
+              "AL" => "Albania",
+              "DZ" => "Algeria",
+              "AS" => "American Samoa",
+              "AD" => "Andorra",
+              "AO" => "Angola",
+              "AI" => "Anguilla",
+              "AQ" => "Antarctica",
+              "AG" => "Antigua and Barbuda",
+              "AR" => "Argentina",
+              "AM" => "Armenia",
+              "AW" => "Aruba",
+              "AU" => "Australia",
+              "AT" => "Austria",
+              "AZ" => "Azerbaijan",
+              "BS" => "Bahamas",
+              "BH" => "Bahrain",
+              "BD" => "Bangladesh",
+              "BB" => "Barbados",
+              "BY" => "Belarus",
+              "BE" => "Belgium",
+              "BZ" => "Belize",
+              "BJ" => "Benin",
+              "BM" => "Bermuda",
+              "BT" => "Bhutan",
+              "BO" => "Bolivia",
+              "BA" => "Bosnia and Herzegovina",
+              "BW" => "Botswana",
+              "BV" => "Bouvet Island",
+              "BR" => "Brazil",
+              "IO" => "British Indian Ocean Territory",
+              "BN" => "Brunei Darussalam",
+              "BG" => "Bulgaria",
+              "BF" => "Burkina Faso",
+              "BI" => "Burundi",
+              "KH" => "Cambodia",
+              "CM" => "Cameroon",
+              "CA" => "Canada",
+              "CV" => "Cape Verde",
+              "KY" => "Cayman Islands",
+              "CF" => "Central African Republic",
+              "TD" => "Chad",
+              "CL" => "Chile",
+              "CN" => "China",
+              "CX" => "Christmas Island",
+              "CC" => "Cocos (Keeling) Islands",
+              "CO" => "Colombia",
+              "KM" => "Comoros",
+              "CG" => "Congo",
+              "CD" => "Congo, the Democratic Republic of the",
+              "CK" => "Cook Islands",
+              "CR" => "Costa Rica",
+              "CI" => "Cote D'Ivoire",
+              "HR" => "Croatia",
+              "CU" => "Cuba",
+              "CY" => "Cyprus",
+              "CZ" => "Czech Republic",
+              "DK" => "Denmark",
+              "DJ" => "Djibouti",
+              "DM" => "Dominica",
+              "DO" => "Dominican Republic",
+              "EC" => "Ecuador",
+              "EG" => "Egypt",
+              "SV" => "El Salvador",
+              "GQ" => "Equatorial Guinea",
+              "ER" => "Eritrea",
+              "EE" => "Estonia",
+              "ET" => "Ethiopia",
+              "FK" => "Falkland Islands (Malvinas)",
+              "FO" => "Faroe Islands",
+              "FJ" => "Fiji",
+              "FI" => "Finland",
+              "FR" => "France",
+              "GF" => "French Guiana",
+              "PF" => "French Polynesia",
+              "TF" => "French Southern Territories",
+              "GA" => "Gabon",
+              "GM" => "Gambia",
+              "GE" => "Georgia",
+              "DE" => "Germany",
+              "GH" => "Ghana",
+              "GI" => "Gibraltar",
+              "GR" => "Greece",
+              "GL" => "Greenland",
+              "GD" => "Grenada",
+              "GP" => "Guadeloupe",
+              "GU" => "Guam",
+              "GT" => "Guatemala",
+              "GN" => "Guinea",
+              "GW" => "Guinea-Bissau",
+              "GY" => "Guyana",
+              "HT" => "Haiti",
+              "HM" => "Heard Island and Mcdonald Islands",
+              "VA" => "Holy See (Vatican City State)",
+              "HN" => "Honduras",
+              "HK" => "Hong Kong",
+              "HU" => "Hungary",
+              "IS" => "Iceland",
+              "IN" => "India",
+              "ID" => "Indonesia",
+              "IR" => "Iran, Islamic Republic of",
+              "IQ" => "Iraq",
+              "IE" => "Ireland",
+              "IL" => "Israel",
+              "IT" => "Italy",
+              "JM" => "Jamaica",
+              "JP" => "Japan",
+              "JO" => "Jordan",
+              "KZ" => "Kazakhstan",
+              "KE" => "Kenya",
+              "KI" => "Kiribati",
+              "KP" => "Korea, Democratic People's Republic of",
+              "KR" => "Korea, Republic of",
+              "KW" => "Kuwait",
+              "KG" => "Kyrgyzstan",
+              "LA" => "Lao People's Democratic Republic",
+              "LV" => "Latvia",
+              "LB" => "Lebanon",
+              "LS" => "Lesotho",
+              "LR" => "Liberia",
+              "LY" => "Libyan Arab Jamahiriya",
+              "LI" => "Liechtenstein",
+              "LT" => "Lithuania",
+              "LU" => "Luxembourg",
+              "MO" => "Macao",
+              "MK" => "Macedonia, the Former Yugoslav Republic of",
+              "MG" => "Madagascar",
+              "MW" => "Malawi",
+              "MY" => "Malaysia",
+              "MV" => "Maldives",
+              "ML" => "Mali",
+              "MT" => "Malta",
+              "MH" => "Marshall Islands",
+              "MQ" => "Martinique",
+              "MR" => "Mauritania",
+              "MU" => "Mauritius",
+              "YT" => "Mayotte",
+              "MX" => "Mexico",
+              "FM" => "Micronesia, Federated States of",
+              "MD" => "Moldova, Republic of",
+              "MC" => "Monaco",
+              "MN" => "Mongolia",
+              "MS" => "Montserrat",
+              "MA" => "Morocco",
+              "MZ" => "Mozambique",
+              "MM" => "Myanmar",
+              "NA" => "Namibia",
+              "NR" => "Nauru",
+              "NP" => "Nepal",
+              "NL" => "Netherlands",
+              "AN" => "Netherlands Antilles",
+              "NC" => "New Caledonia",
+              "NZ" => "New Zealand",
+              "NI" => "Nicaragua",
+              "NE" => "Niger",
+              "NG" => "Nigeria",
+              "NU" => "Niue",
+              "NF" => "Norfolk Island",
+              "MP" => "Northern Mariana Islands",
+              "NO" => "Norway",
+              "OM" => "Oman",
+              "PK" => "Pakistan",
+              "PW" => "Palau",
+              "PS" => "Palestinian Territory, Occupied",
+              "PA" => "Panama",
+              "PG" => "Papua New Guinea",
+              "PY" => "Paraguay",
+              "PE" => "Peru",
+              "PH" => "Philippines",
+              "PN" => "Pitcairn",
+              "PL" => "Poland",
+              "PT" => "Portugal",
+              "PR" => "Puerto Rico",
+              "QA" => "Qatar",
+              "RE" => "Reunion",
+              "RO" => "Romania",
+              "RU" => "Russian Federation",
+              "RW" => "Rwanda",
+              "SH" => "Saint Helena",
+              "KN" => "Saint Kitts and Nevis",
+              "LC" => "Saint Lucia",
+              "PM" => "Saint Pierre and Miquelon",
+              "VC" => "Saint Vincent and the Grenadines",
+              "WS" => "Samoa",
+              "SM" => "San Marino",
+              "ST" => "Sao Tome and Principe",
+              "SA" => "Saudi Arabia",
+              "SN" => "Senegal",
+              "CS" => "Serbia and Montenegro",
+              "SC" => "Seychelles",
+              "SL" => "Sierra Leone",
+              "SG" => "Singapore",
+              "SK" => "Slovakia",
+              "SI" => "Slovenia",
+              "SB" => "Solomon Islands",
+              "SO" => "Somalia",
+              "ZA" => "South Africa",
+              "GS" => "South Georgia and the South Sandwich Islands",
+              "ES" => "Spain",
+              "LK" => "Sri Lanka",
+              "SD" => "Sudan",
+              "SR" => "Suriname",
+              "SJ" => "Svalbard and Jan Mayen",
+              "SZ" => "Swaziland",
+              "SE" => "Sweden",
+              "CH" => "Switzerland",
+              "SY" => "Syrian Arab Republic",
+              "TW" => "Taiwan, Province of China",
+              "TJ" => "Tajikistan",
+              "TZ" => "Tanzania, United Republic of",
+              "TH" => "Thailand",
+              "TL" => "Timor-Leste",
+              "TG" => "Togo",
+              "TK" => "Tokelau",
+              "TO" => "Tonga",
+              "TT" => "Trinidad and Tobago",
+              "TN" => "Tunisia",
+              "TR" => "Turkey",
+              "TM" => "Turkmenistan",
+              "TC" => "Turks and Caicos Islands",
+              "TV" => "Tuvalu",
+              "UG" => "Uganda",
+              "UA" => "Ukraine",
+              "AE" => "United Arab Emirates",
+              "GB" => "United Kingdom",
+              "US" => "United States",
+              "UM" => "United States Minor Outlying Islands",
+              "UY" => "Uruguay",
+              "UZ" => "Uzbekistan",
+              "VU" => "Vanuatu",
+              "VE" => "Venezuela",
+              "VN" => "Viet Nam",
+              "VG" => "Virgin Islands, British",
+              "VI" => "Virgin Islands, U.s.",
+              "WF" => "Wallis and Futuna",
+              "EH" => "Western Sahara",
+              "YE" => "Yemen",
+              "ZM" => "Zambia",
+              "ZW" => "Zimbabwe"
+              );
+              foreach($countries as $key => $value) {
+              ?>
+                <option value="<?= $value ?>" title="<?= htmlspecialchars($value) ?>" <?php echo (isset($_GET['edit']) && $value == $editrow['fld_product_region']) ? "selected" : ""; ?>><?= htmlspecialchars($value) ?></option>
+                <?php
+                }
+              ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productyear" class="col-sm-3 control-label">Year</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="year" name="product_year" required>
+              <option disabled selected value="">Select</option>
+              <?php
+                $years = array_combine(range(date("Y"), 1800), range(date("Y"), 1800));
+                foreach ($years as $year) {
+                  echo "<option value='$year'".((isset($_GET['edit']) && $year == $editrow['fld_product_year']) ? "selected" : "").">{$year}</option>";
+                }
+              ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productera" class="col-sm-3 control-label">Era</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="era" name="product_era" required>
+              <option disabled selected value="">Select</option>
+              <option value="Edward VII" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Edward VII") echo "selected"; ?>>Edward VII</option>
+              <option value="George V" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="George V") echo "selected"; ?>>George V</option>
+              <option value="Victoria" <?php if(isset($_GET['edit'])) if($editrow['fld_product_era']=="Victoria") echo "selected"; ?>>Victoria</option>
+            </select>
+          </div>
+        </div>
         
-        Condition
-        <select id="condition" name="product_condition">
-          <option disabled selected value="">Select</option>
-          <option value="Mint No Gum" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint No Gum") echo "selected"; ?>>Mint No Gum</option>
-          <option value="Mint Hinged" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint Hinged") echo "selected"; ?>>Mint Hinged</option>
-          <option value="Used" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Used") echo "selected"; ?>>Used</option>
-        </select>
+        <div class="form-group">
+          <label for="productcondition" class="col-sm-3 control-label">Condition</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="condition" name="product_condition" required>
+              <option disabled selected value="">Select</option>
+              <option value="Mint No Gum" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint No Gum") echo "selected"; ?>>Mint No Gum</option>
+              <option value="Mint Hinged" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Mint Hinged") echo "selected"; ?>>Mint Hinged</option>
+              <option value="Used" <?php if(isset($_GET['edit'])) if($editrow['fld_product_condition']=="Used") echo "selected"; ?>>Used</option>
+            </select>
+          </div>
+        </div>
 
-        <?php if (isset($_GET['edit'])) { ?>
-        <input type="hidden" name="oldpid" value="<?php echo $editrow['fld_product_id']; ?>">
-        <button type="submit" name="update">Update</button>
-        <?php } else { ?>
-
-        <button type="submit" name="create">Create</button>
-
-        <?php } ?>
-
-        <button type="reset">Clear</button>
-    </form>
-    <hr>
-    <table border="1">
-      <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Price (RM)</td>
-        <td>Region</td>
-        <td>Year</td>
-        <td>Era</td>
-        <td>Condition</td>
-        <td></td>
-      </tr>
-
-      <?php
-      // Read
-      try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-      }
-      catch(PDOException $e){
-            echo "Error: " . $e->getMessage();
-      }
-      foreach($result as $readrow) {
-      ?>  
-
-      <tr>
-        <td><?php echo $readrow['fld_product_id']; ?></td>
-        <td><?php echo $readrow['fld_product_name']; ?></td>
-        <td><?php echo $readrow['fld_product_price']; ?></td>
-        <td><?php echo $readrow['fld_product_region']; ?></td>
-        <td><?php echo $readrow['fld_product_year']; ?></td>
-        <td><?php echo $readrow['fld_product_era']; ?></td>
-        <td><?php echo $readrow['fld_product_condition']; ?></td>
-        <td>
-          <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>">Details</a>
-          <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>">Edit</a>
-          <a href="products.php?delete=<?php echo $readrow['fld_product_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
-        </td>
-      </tr>
-
-      <?php
-      }
-      if (!isset($_GET['edit'])){
-        $id = ltrim($readrow['fld_product_id'], 'SID')+1;
-        $id = 'SID'.str_pad($id,2,"0",STR_PAD_LEFT);
-      }
-      elseif(!isset($_GET['edit'])){
-          $id = 'O'.str_pad(1,2,"0",STR_PAD_LEFT);
-        }
-      $conn = null;
-      ?>
-      <script type="text/javascript">
-        if("<?php echo $id ?>" !== null && "<?php echo $id ?>" !== ""){
-          var pid = document.getElementById("pid");
-          pid.value = "<?php echo $id ?>";
-          pid.readOnly = true;
-        }
-
-      </script>
-
-    </table>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <?php if (isset($_GET['edit'])) { ?>
+            <input type="hidden" name="oldpid" value="<?php echo $editrow['fld_product_id']; ?>">
+            <button class="btn btn-default" type="submit" name="update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update</button>
+            <?php } else { ?>
+            <button class="btn btn-default" type="submit" name="create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create</button>
+            <?php } ?>
+            <button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+  
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h2>Products List</h2>
+      </div>
+    <table class="table table-striped table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Region</th>
+      <th>Year</th>
+      <th>Era</th>
+      <th>Condition</th>
+      <th>Action</th>
+    </tr>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+    <?php
+    // Read
+    $per_page = 5;
+    if (isset($_GET["page"]))
+      $page = $_GET["page"];
+    else
+      $page = 1;
+    $start_from = ($page-1) * $per_page;
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2 LIMIT $start_from, $per_page");
+      $stmt->execute();
+      $result = $stmt->fetchAll();
+    }
+    catch(PDOException $e){
+          echo "Error: " . $e->getMessage();
+    }
+    foreach($result as $readrow) {
+    ?>  
+
+    <tr>
+      <td><?php echo $readrow['fld_product_id']; ?></td>
+      <td><?php echo $readrow['fld_product_name']; ?></td>
+      <td><?php echo $readrow['fld_product_price']; ?></td>
+      <td><?php echo $readrow['fld_product_region']; ?></td>
+      <td><?php echo $readrow['fld_product_year']; ?></td>
+      <td><?php echo $readrow['fld_product_era']; ?></td>
+      <td><?php echo $readrow['fld_product_condition']; ?></td>
+      <td>
+        <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
+        <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
+        <a href="products.php?delete=<?php echo $readrow['fld_product_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+      </td>
+    </tr>
+
+    <?php
+    }
+    $conn = null;
+    ?>
+
+  </table>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+    <nav>
+        <ul class="pagination">
+        <?php
+        try {
+          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
+          $stmt->execute();
+          $result = $stmt->fetchAll();
+          $total_records = count($result);
+        }
+        catch(PDOException $e){
+              echo "Error: " . $e->getMessage();
+        }
+        $total_pages = ceil($total_records / $per_page);
+        ?>
+        <?php if ($page==1) { ?>
+          <li class="disabled"><span aria-hidden="true">«</span></li>
+        <?php } else { ?>
+          <li><a href="products.php?page=<?php echo $page-1 ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        <?php
+        }
+        for ($i=1; $i<=$total_pages; $i++)
+          if ($i == $page)
+            echo "<li class=\"active\"><a href=\"products.php?page=$i\">$i</a></li>";
+          else
+            echo "<li><a href=\"products.php?page=$i\">$i</a></li>";
+        ?>
+        <?php if ($page==$total_pages) { ?>
+          <li class="disabled"><span aria-hidden="true">»</span></li>
+        <?php } else { ?>
+          <li><a href="products.php?page=<?php echo $page+1 ?>" aria-label="Previous"><span aria-hidden="true">»</span></a></li>
+        <?php } ?>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

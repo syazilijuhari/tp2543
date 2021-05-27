@@ -30,7 +30,8 @@ A173630
         width:100%;
         height:100%;
         background:url(products/logo.png) center center no-repeat;
-        background-color: #ded4c3;
+        background-size: 40% 60%;
+        background-color: #161616;
         min-height:100%;
     }
 
