@@ -15,7 +15,7 @@ A173630
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Rare Stamps Ordering System</title>
+    <title>Rare Stamps: Customers</title>
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@ A173630
         <div class="form-group">
           <label for="customerphone" class="col-sm-3 control-label">Phone No</label>
           <div class="col-sm-9">
-            <input class="form-control" type="tel" placeholder="+60##-#######" id="cphone" name="customer_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_phone']; ?>">
+            <input class="form-control" type="tel" placeholder="Customer Phone No (e.g. +6012-3456789)" id="cphone" name="customer_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_phone']; ?>">
           </div>
         </div>
 

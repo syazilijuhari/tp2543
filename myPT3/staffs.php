@@ -15,7 +15,7 @@ A173630
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Rare Stamps Ordering System</title>
+    <title>Rare Stamps: Staffs</title>
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -54,14 +54,14 @@ A173630
         <div class="form-group">
           <label for="staffphone" class="col-sm-3 control-label">Phone No</label>
           <div class="col-sm-9">
-            <input class="form-control" type="tel" placeholder="+60##-#######" id="sphone" name="staff_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>">
+            <input class="form-control" type="tel" placeholder="Staff Phone No (e.g. +6012-3456789)" id="sphone" name="staff_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
             <?php if (isset($_GET['edit'])) { ?>
-            <input type="hidden" name="oldcid" value="<?php echo $editrow['fld_staff_id']; ?>">
+            <input type="hidden" name="oldsid" value="<?php echo $editrow['fld_staff_id']; ?>">
             <button class="btn btn-default" type="submit" name="update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update</button>
             <?php } else { ?>
             <button class="btn btn-default" type="submit" name="create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create</button>
