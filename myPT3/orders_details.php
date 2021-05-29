@@ -9,239 +9,180 @@ A173630
 
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Rare Stamps Ordering System</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rare Stamps: Orders Details</title>
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
-    <meta charset="UTF-8">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
-
-<style>
-
-    .navbar {
-        font-size: 24px
-    }
-
-    .nav-link {
-        background-color: Transparent;
-        background-repeat:no-repeat;
-        border: none;
-        cursor:pointer;
-        overflow: hidden;
-        outline:none;
-    }
-
-    .order-details form {
-      /* Center the form on the page */
-      margin: 0 auto;
-      width: 500px;
-      /* Form outline */
-      padding: 1em;
-      border: 1px solid #CCC;
-      border-radius: 1em;
-    }
-
-    .form-qty form {
-      /* Center the form on the page */
-      margin: 0 auto;
-      width: 500px;
-    }
-
-    .form-qty label {
-      display: inline-block;
-      width: 100px;
-      text-align: center;
-      margin-top: 16px;
-    }
-
-    .form-qty button {
-      margin-top: 16px;
-    }
-
-    .invoice button {
-      margin-top: 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 12px;
-    }
-
-    .order-details form li+li {
-      margin-top: 1em;
-    }
-
-    label {
-      /* Uniform size & alignment */
-      display: inline-block;
-      width: 160px;
-      text-align: left;
-    }
-
-    input,
-    select {
-      /* Uniform text field size */
-      width: 300px;
-      box-sizing: border-box;
-
-      /* Match form field borders */
-      border: 1px solid #999;
-    }
-
-    input:focus {
-      /* Additional highlight for focused elements */
-      border-color: #000;
-    }
-
-    button {
-      margin-left: .5em;
-    }
-</style>
-
 <body>
-    <div id="nav" class="navbar">
-        <center>
-            <button class="nav-link">
-                <a href="index.php">Home</a> |
-            </button>
-            <button class="nav-link">
-                <a href="products.php">Products</a> |
-            </button>
-            <button class="nav-link">
-                <a href="customers.php">Customers</a> |
-            </button>
-            <button class="nav-link">
-                <a href="staffs.php">Staffs</a> |
-            </button>
-            <button class="nav-link">
-                <a href="orders.php">Orders</a>
-            </button>
-            <hr>
-        </center>
-    </div>
-    <div id="header" class="header">
-        <h1 align="center">Order Details</h1>
-    </div>
+<?php include_once 'nav_bar.php'; ?>
+<?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
+<?php
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2 WHERE tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id AND tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id AND fld_order_id = :order_id");
+  $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
+  $oid = $_GET['order_id'];
+  $stmt->execute();
+  $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+$conn = null;
+?>
 
-     <?php
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Order Details</strong></div>
+        <div class="panel-body">
+            Below are details of the order.
+        </div>
+        <table class="table">
+          <tr>
+            <td class="col-xs-4 col-sm-4 col-md-4"><strong>Order ID</strong></td>
+            <td><?php echo $readrow['fld_order_id']; ?></td>
+          </tr>
+          <tr>
+            <td><strong>Order Date</strong></td>
+            <td><?php echo date_format(date_create($readrow['fld_order_date']), "d/m/Y h:s a"); ?></td>
+          </tr>
+          <tr>
+            <td><strong>Staff</strong></td>
+            <td><?php echo $readrow['fld_staff_name']; ?></td>
+          </tr>
+          <tr>
+            <td><strong>Customer</strong></td>
+            <td><?php echo $readrow['fld_customer_name']; ?></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <div class="page-header">
+        <h2>Add a Product</h2>
+      </div>
+      <form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder">
+      <div class="form-group">
+        <label for="prd" class="col-sm-3 control-label">Product</label>
+        <div class="col-sm-9">
+          <select name="product_id" class="form-control" id="pid">
+            <option disabled selected value="">Select</option>
+            <?php
+            try {
+              $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
+              $stmt->execute();
+              $result = $stmt->fetchAll();
+            }
+            catch(PDOException $e){
+                  echo "Error: " . $e->getMessage();
+            }
+            foreach($result as $productrow) {
+            ?>
+              <option value="<?php echo $productrow['fld_product_id']; ?>"><?php echo $productrow['fld_product_name']; ?></option>
+            <?php
+            }
+            $conn = null;
+
+            ?>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="qty" class="col-sm-3 control-label">Quantity</label>
+        <div class="col-sm-9">
+          <input name="quantity" type="number" class="form-control" id="qty" min="1">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+        <input name="order_id" type="hidden" value="<?php echo $readrow['fld_order_id'] ?>">
+        <button class="btn btn-default" type="submit" name="addproduct"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Product</button>
+        <button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+    
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <div class="page-header">
+        <h2>Products in This Order</h2>
+      </div>
+      <table class="table table-striped table-bordered">
+      <tr>
+        <th>Order Detail ID</th>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Action</th>
+      </tr>
+
+      <?php
       try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * FROM tbl_orders_a173630, tbl_staffs_a173630_pt2, tbl_customers_a173630_pt2 WHERE tbl_orders_a173630.fld_staff_id = tbl_staffs_a173630_pt2.fld_staff_id AND tbl_orders_a173630.fld_customer_id = tbl_customers_a173630_pt2.fld_customer_id AND fld_order_id = :order_id");
+        $stmt = $conn->prepare("SELECT * FROM tbl_orders_details_a173630, tbl_products_a173630_pt2 WHERE tbl_orders_details_a173630.fld_product_id = tbl_products_a173630_pt2.fld_product_id AND fld_order_id = :order_id");
         $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
         $oid = $_GET['order_id'];
         $stmt->execute();
-        $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-      catch(PDOException $e) {
-          echo "Error: " . $e->getMessage();
+        $result = $stmt->fetchAll();
+      }
+      catch(PDOException $e){
+            echo "Error: " . $e->getMessage();
+      }
+      foreach($result as $detailrow) {
+      ?>
+      <tr>
+        <td><?php echo $detailrow['fld_order_detail_id']; ?></td>
+        <td><?php echo $detailrow['fld_order_id']; ?></td>
+        <td><?php echo $detailrow['fld_product_id']; ?></td>
+        <td><?php echo $detailrow['fld_product_name']; ?></td>
+        <td><?php echo $detailrow['fld_product_qty']; ?></td>
+        <td>
+          <a href="orders_details.php?delete=<?php echo $detailrow['fld_order_detail_id']; ?>&order_id=<?php echo $_GET['order_id']; ?>" onclick="return confirm('Are you sure to delete?');"  class="btn btn-danger btn-xs" role="button">Delete</a>
+        </td>
+      </tr>
+      <?php
       }
       $conn = null;
       ?>
-
-    <div class="order-details" style="margin: 0 10%">
-        <form action="orders_details.php" method="post">
-          <ul>
-              <li>
-                  <label>Order ID</label>
-                  <label><?php echo $readrow['fld_order_id'] ?></label>
-              </li>
-              <li>
-                  <label>Order Date</label>
-                  <label><?php echo $readrow['fld_order_date'] ?></label>
-              </li>
-              <li>
-                  <label>Staff</label>
-                  <label><?php echo $readrow['fld_staff_name'] ?></label>
-              </li>
-              <li>
-                  <label>Customer</label>
-                  <label><?php echo $readrow['fld_customer_name'] ?></label>
-              </li>
-          </ul>
-        </form>
-    </div>
-    <hr>
-    <div class="form-qty">
-      <form action="orders_details.php" method="post">
-        <label>Product</label>
-          <select style="margin-left: 16px " name="product_id">
-              <option disabled selected value="">Select</option>
-              <?php
-              try {
-                $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
-                $stmt->execute();
-                $result = $stmt->fetchAll();
-              }
-              catch(PDOException $e){
-                    echo "Error: " . $e->getMessage();
-              }
-              foreach($result as $productrow) {
-              ?>
-                <option value="<?php echo $productrow['fld_product_id']; ?>"><?php echo $productrow['fld_product_name']; ?></option>
-              <?php
-              }
-              $conn = null;
-
-              ?>
-          </select>
-          <label>Quantity</label>
-          <input style="margin-left: 16px" name="quantity" type="number" min="1" required>
-          <div style="margin: auto; display: flex; align-items: center; justify-content: center;">
-            <input name="order_id" type="hidden" value="<?php echo $readrow['fld_order_id'] ?>">
-            <button type="submit" name="addproduct">Add</button>
-            <button type="reset">Clear</button>
-          </div>
-      </form>
-    </div>
-    <hr>
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <table border="1" style="width: 60%;">
-        <tr>
-           <td style="width: 9%;">Order Detail ID</td>
-          <td style="width: 5%;">Order ID</td>
-          <td style="width: 7%;">Product ID</td>
-          <td style="width: 40%;">Name</td>
-          <td style="width: 5%;">Quantity</td>
-          <td style="width: 10%"></td>
-        </tr>
-         <?php
-          try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $conn->prepare("SELECT * FROM tbl_orders_details_a173630, tbl_products_a173630_pt2 WHERE tbl_orders_details_a173630.fld_product_id = tbl_products_a173630_pt2.fld_product_id AND fld_order_id = :order_id");
-            $stmt->bindParam(':order_id', $oid, PDO::PARAM_STR);
-            $oid = $_GET['order_id'];
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-          }
-          catch(PDOException $e){
-                echo "Error: " . $e->getMessage();
-          }
-          foreach($result as $detailrow) {
-          ?>
-          <tr>
-            <td><?php echo $detailrow['fld_order_detail_id']; ?></td>
-            <td><?php echo $detailrow['fld_order_id']; ?></td>
-            <td><?php echo $detailrow['fld_product_id']; ?></td>
-            <td><?php echo $detailrow['fld_product_name']; ?></td>
-            <td><?php echo $detailrow['fld_product_qty']; ?></td>
-            <td>
-              <a href="orders_details.php?delete=<?php echo $detailrow['fld_order_detail_id']; ?>&order_id=<?php echo $_GET['order_id']; ?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
-            </td>
-          </tr>
-          <?php
-          }
-          $conn = null;
-          ?>
-          
       </table>
     </div>
-    <div class="invoice" style="margin: auto; display: flex; align-items: center; justify-content: center;">
-      <button onclick="document.location='invoice.php?order_id=<?php echo $_GET['order_id']; ?>'" name="generate-invoice">Generate Invoice</button>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <a href="invoice.php?order_id=<?php echo $_GET['order_id']; ?>" target="_blank" role="button" class="btn btn-primary btn-lg btn-block">Generate Invoice</a>
     </div>
+  </div>
+  <br>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -196,8 +196,8 @@ A173630
         <tr>
           <td style="width: 4%;">Order ID</td>
           <td style="width: 10%;">Order Date</td>
-          <td style="width: 10%;">Staff ID</td>
-          <td style="width: 10%;">Customer ID</td>
+          <td style="width: 10%;">Staff</td>
+          <td style="width: 10%;">Customer</td>
           <td style="width: 10%"></td>
         </tr>
          <?php
