@@ -84,7 +84,7 @@ $conn = null;
       <div class="form-group">
         <label for="prd" class="col-sm-3 control-label">Product</label>
         <div class="col-sm-9">
-          <select name="product_id" class="form-control" id="pid">
+          <select name="product_id" class="form-control" id="pid" required>
             <option disabled selected value="">Select</option>
             <?php
             try {
@@ -112,7 +112,7 @@ $conn = null;
       <div class="form-group">
         <label for="qty" class="col-sm-3 control-label">Quantity</label>
         <div class="col-sm-9">
-          <input name="quantity" type="number" class="form-control" id="qty" min="1">
+          <input name="quantity" type="number" class="form-control" id="qty" min="1" required>
         </div>
       </div>
 
@@ -134,8 +134,7 @@ $conn = null;
       <table class="table table-striped table-bordered">
       <tr>
         <th>Order Detail ID</th>
-        <th>Order ID</th>
-        <th>Product ID</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Quantity</th>
         <th>Action</th>
@@ -158,7 +157,6 @@ $conn = null;
       ?>
       <tr>
         <td><?php echo $detailrow['fld_order_detail_id']; ?></td>
-        <td><?php echo $detailrow['fld_order_id']; ?></td>
         <td><?php echo $detailrow['fld_product_id']; ?></td>
         <td><?php echo $detailrow['fld_product_name']; ?></td>
         <td><?php echo $detailrow['fld_product_qty']; ?></td>
@@ -180,6 +178,31 @@ $conn = null;
   </div>
   <br>
 </div>
+<script type="text/javascript">
+ 
+  function validateForm() {
+ 
+      var x = document.forms["frmorder"]["product_id"].value;
+      var y = document.forms["frmorder"]["quantity"].value;
+      //var x = document.getElementById("prd").value;
+      //var y = document.getElementById("qty").value;
+      if (x == null || x == "") {
+          alert("Product must be selected");
+          document.forms["frmorder"]["product_id"].focus();
+          //document.getElementById("prd").focus();
+          return false;
+      }
+      if (y == null || y == "") {
+          alert("Quantity must be filled out");
+          document.forms["frmorder"]["quantity"].focus();
+          //document.getElementById("qty").focus();
+          return false;
+      }
+       
+      return true;
+  }
+ 
+</script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
