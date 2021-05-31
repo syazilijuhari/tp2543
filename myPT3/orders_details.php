@@ -182,19 +182,19 @@ $conn = null;
  
   function validateForm() {
  
-      var x = document.forms["frmorder"]["product_id"].value;
-      var y = document.forms["frmorder"]["quantity"].value;
+      var x = document.forms["frmorder"]["pid"].value;
+      var y = document.forms["frmorder"]["qty"].value;
       //var x = document.getElementById("prd").value;
       //var y = document.getElementById("qty").value;
       if (x == null || x == "") {
           alert("Product must be selected");
-          document.forms["frmorder"]["product_id"].focus();
+          document.forms["frmorder"]["pid"].focus();
           //document.getElementById("prd").focus();
           return false;
       }
       if (y == null || y == "") {
           alert("Quantity must be filled out");
-          document.forms["frmorder"]["quantity"].focus();
+          document.forms["frmorder"]["qty"].focus();
           //document.getElementById("qty").focus();
           return false;
       }
