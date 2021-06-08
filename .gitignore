@@ -6,3 +6,8 @@ database.php
 *.jpg
 *.png
 *.ico
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/tp2543.iml
+.idea/php.xml
+.idea/modules.xml
