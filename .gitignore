@@ -11,3 +11,4 @@ database.php
 .idea/tp2543.iml
 .idea/php.xml
 .idea/modules.xml
+*.jpeg
