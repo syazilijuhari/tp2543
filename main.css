@@ -1,10 +1,10 @@
-:root {
+/* :root {
 	--main-white: #f0f0f0;
   --main-purpledark: #6200EA;
   --main-purplelight: #7C4DFF;
   --main-gray: #303841;
   --main-black: #000000;
-}
+} */
 
 html {
 	scroll-behavior: smooth;
@@ -13,17 +13,16 @@ html {
 body {
     font: 20px Montserrat, sans-serif;
     line-height: 1.8;
-    color: var(--main-white);
-    background-color: var(--main-gray)
+    color: #fff;
+    background-color: #1c1c1c
 }
 
 #home h2, h3 {
-	color: var(--main-white);
+	color: #fff;
 }
 
 p {
 	font-size: 16px;
-	color: var(--main-white);
 }
 
 ul {
@@ -32,7 +31,6 @@ ul {
 
 a {
     text-decoration: none;
-    color: var(--main-white);
 }
 
   @media (max-width: 75em) {
@@ -75,15 +73,15 @@ a {
 
 #home {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  background-color: var(--main-purpledark)
+  background-color: #1c1c1c
 }
 
 #lab {
-	background-color: var(--main-purplelight);
+	background-color: #fff;
+  color: #1c1c1c;
 }
 
 h3 {
-  color: var(--main-white);
   margin: 20px;
   font-weight: bold;
   text-decoration: none;
@@ -98,27 +96,29 @@ a:active {
 }
 
 #assignment {
-	background-color: var(--main-purpledark);
-  color: var(--main-white)
+	background-color: #fff;
+  color: #1c1c1c
 }
 
 #project {
-	background-color: var(--main-purplelight)
+	background-color: #fff;
+  color: #1c1c1c;
 }
 
 .thumbnail {
  	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  background-color: var(--main-purpledark)
+  background-color: #1c1c1c
 }
 
 .thumbnail:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
 }
 
-.btn {
+/* .btn{
 	box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
-}
+} */
 
 #contact {
     display: flex;
@@ -133,13 +133,13 @@ a:active {
     font-size: 24px;
     text-shadow: 2px 2px 1px #1f1f1f;
     transition: transform 0.3s ease-out;
-    color: var(--main-white);
+    color: #959595;
     margin: 2px;
 }
   
 .contact-details:hover {
     transform: translateY(8px);
-    color: var(--main-purpledark)
+    color: #fff
 }
 #contact p {
 	margin-top: 35px
