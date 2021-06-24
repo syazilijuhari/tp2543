@@ -28,14 +28,29 @@ A173630
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
+<?php
+if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+?>
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <div class="page-header">
-        <h2>Create New Product</h2>
+      <?php
+      if (isset($editrow) && count($editrow) > 0) {
+          echo "<h2>Editing #" . $fID . "</h2>";
+      } else {
+          echo "<h2>Create New Product</h2>";
+      }
+      ?>
       </div>
+      <?php
+      if (isset($_SESSION['error'])) {
+          echo "<p class='text-danger text-center'>{$_SESSION['error']}</p>";
+          unset($_SESSION['error']);
+      }
+      ?>
 
-      <form action="products.php" method="post" class="form-horizontal">
+      <form action="products.php" method="post" class="form-horizontal" enctype="multipart/form-data">
         <div class="form-group">
           <label for="productid" class="col-sm-3 control-label">ID</label>
           <div class="col-sm-9">
@@ -368,7 +383,9 @@ A173630
       </form>
     </div>
   </div>
-  
+  <?php
+  }
+  ?>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
       <div class="page-header">
@@ -417,8 +434,14 @@ A173630
       <td><?php echo $readrow['fld_product_condition']; ?></td>
       <td>
         <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
+        <?php
+        if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+        ?>
         <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
         <a href="products.php?delete=<?php echo $readrow['fld_product_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+        <?php
+        }
+        ?>
       </td>
     </tr>
 
