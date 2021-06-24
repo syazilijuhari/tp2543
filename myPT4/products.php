@@ -370,6 +370,13 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
         </div>
 
         <div class="form-group">
+          <label for="productimage" class="col-sm-3 control-label">Image</label>
+          <div class="col-sm-9">
+          <button class="btn btn-default" type="submit" name="addImage"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Upload</button>
+          </div>
+        </div>
+
+        <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
             <?php if (isset($_GET['edit'])) { ?>
             <input type="hidden" name="oldpid" value="<?php echo $editrow['fld_product_id']; ?>">
@@ -380,6 +387,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
             <button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear</button>
           </div>
         </div>
+
       </form>
     </div>
   </div>

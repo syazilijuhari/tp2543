@@ -29,12 +29,27 @@ A173630
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
+<?php
+if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+?>
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <div class="page-header">
-        <h2>Create New Staff</h2>
+      <?php
+      if (isset($editrow) && count($editrow) > 0) {
+          echo "<h2>Editing #" . $fID . "</h2>";
+      } else {
+          echo "<h2>Create New Staff</h2>";
+      }
+      ?>
       </div>
+      <?php
+      if (isset($_SESSION['error'])) {
+          echo "<p class='text-danger text-center'>{$_SESSION['error']}</p>";
+          unset($_SESSION['error']);
+      }
+      ?>
 
       <form action="staffs.php" method="post" class="form-horizontal">
         <div class="form-group">
@@ -72,6 +87,9 @@ A173630
       </form>
     </div>
   </div>
+  <?php
+  }
+  ?>
 
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -83,7 +101,15 @@ A173630
       <th>ID</th>
       <th>Name</th>
       <th>Phone No</th>
+      <th>Email</th>
+      <th>Role</th>
+      <?php
+      if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+      ?>
       <th>Action</th>
+      <?php
+      }
+      ?>
     </tr>
 
     <?php
@@ -110,10 +136,18 @@ A173630
       <td><?php echo $readrow['fld_staff_id']; ?></td>
       <td><?php echo $readrow['fld_staff_name']; ?></td>
       <td><?php echo $readrow['fld_staff_phone']; ?></td>
+      <td><?php echo $readrow['fld_staff_email']; ?></td>
+      <td><?php echo $readrow['fld_staff_role']; ?></td>
+      <?php
+      if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+      ?>
       <td>
         <a href="staffs.php?edit=<?php echo $readrow['fld_staff_id']; ?>" class="btn btn-success btn-xs" role="button">Edit</a>
         <a href="staffs.php?delete=<?php echo $readrow['fld_staff_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
       </td>
+      <?php
+      }
+      ?>
     </tr>
     <?php
     }
