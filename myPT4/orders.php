@@ -39,9 +39,9 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       <div class="page-header">
       <?php
       if (isset($editrow) && count($editrow) > 0) {
-          echo "<h2>Editing #" . $fID . "</h2>";
+          echo "<h2>Edit Order</h2>";
       } else {
-          echo "<h2>Create New Orders</h2>";
+          echo "<h2>Create New Order</h2>";
       }
       ?>
       </div>

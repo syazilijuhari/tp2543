@@ -39,6 +39,8 @@ try {
     $pid = $_GET['pid'];
     $stmt->execute();
     $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (empty($readrow['fld_product_image']))
+        $readrow['fld_product_image'] = "{$readrow['fld_product_id']}.jpg";
     }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -49,11 +51,11 @@ $conn = null;
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 well well-sm text-center">
-        <?php if (!file_exists("products/".$readrow['fld_product_id'].".jpg") ) {
+        <?php if (!file_exists("products/".$readrow['fld_product_image']) ) {
             echo "No image";
         }
         else { ?>
-        <img src="products/<?php echo $readrow['fld_product_id'] ?>.jpg" class="img-responsive" width="100%" height="100%" style="display: block;">
+        <img src="products/<?php echo $readrow['fld_product_image'] ?>" class="img-responsive" width="100%" height="100%" style="display: block;">
         <?php } ?>
         </div>
 

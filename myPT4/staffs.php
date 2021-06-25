@@ -38,7 +38,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       <div class="page-header">
       <?php
       if (isset($editrow) && count($editrow) > 0) {
-          echo "<h2>Editing #" . $fID . "</h2>";
+          echo "<h2>Edit Staff</h2>";
       } else {
           echo "<h2>Create New Staff</h2>";
       }
@@ -70,6 +70,24 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
           <label for="staffphone" class="col-sm-3 control-label">Phone No</label>
           <div class="col-sm-9">
             <input class="form-control" type="tel" placeholder="Staff Phone No (e.g. +6012-3456789)" id="sphone" name="staff_phone" pattern="^[+]601[0-9]{1}-([0-9]{8}|[0-9]{7})" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="staffemail" class="col-sm-3 control-label">Email</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Staff Email" id="sphone" name="staff_email" pattern="[a-zA-Z0-9-]+@gmail.com" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="staffrole" class="col-sm-3 control-label">Role</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="role" name="staff_role" required>
+              <option disabled selected value="">Select</option>
+              <option value="Admin" <?php if(isset($_GET['edit'])) if($editrow['fld_staff_role']=="Admin") echo "selected"; ?>>Admin</option>
+              <option value="Staff" <?php if(isset($_GET['edit'])) if($editrow['fld_staff_role']=="Staff") echo "selected"; ?>>Staff</option>
+            </select>
           </div>
         </div>
 

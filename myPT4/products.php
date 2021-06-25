@@ -25,6 +25,11 @@ A173630
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
@@ -37,7 +42,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       <div class="page-header">
       <?php
       if (isset($editrow) && count($editrow) > 0) {
-          echo "<h2>Editing #" . $fID . "</h2>";
+          echo "<h2>Edit Product</h2>";
       } else {
           echo "<h2>Create New Product</h2>";
       }
@@ -371,8 +376,16 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
 
         <div class="form-group">
           <label for="productimage" class="col-sm-3 control-label">Image</label>
-          <div class="col-sm-9">
-          <button class="btn btn-default" type="submit" name="addImage"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Upload</button>
+          <div class="col-sm-5">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputFileName" placeholder="Image Files (*.jpg, *.gif) " readonly value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_image']?>">
+              <span class="input-group-btn">
+              <label class="btn btn-primary">
+                  <input type="file" accept="image/*" name="fileToUpload" id="inputImage" onchange="loadFile(event);" />
+                  <i class="fa fa-cloud-upload"></i> Upload
+              </label>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -503,5 +516,10 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+<script type="application/javascript">
+    var loadFile = function (event) {
+        document.getElementById('inputFileName').value = event.target.files[0]['name'];
+    };
+</script>
 </body>
 </html>

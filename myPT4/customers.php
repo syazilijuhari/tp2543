@@ -38,7 +38,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       <div class="page-header">
       <?php
       if (isset($editrow) && count($editrow) > 0) {
-          echo "<h2>Editing #" . $fID . "</h2>";
+          echo "<h2>Edit Customer</h2>";
       } else {
           echo "<h2>Create New Customer</h2>";
       }
@@ -138,8 +138,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
       ?>
       <td>
-        <a href="staffs.php?edit=<?php echo $readrow['fld_staff_id']; ?>" class="btn btn-success btn-xs" role="button">Edit</a>
-        <a href="staffs.php?delete=<?php echo $readrow['fld_staff_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+        <a href="customers.php?edit=<?php echo $readrow['fld_customer_id']; ?>" class="btn btn-success btn-xs" role="button">Edit</a>
+        <a href="customers.php?delete=<?php echo $readrow['fld_customer_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
       </td>
       <?php
       }
