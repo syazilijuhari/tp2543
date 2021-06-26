@@ -107,6 +107,18 @@ if (!isset($_SESSION['loggedin']))
         overflow: hidden;
         outline:none;
     }
+    ::-webkit-input-placeholder {
+        font-style: italic;
+        }
+        :-moz-placeholder {
+        font-style: italic;  
+        }
+        ::-moz-placeholder {
+        font-style: italic;  
+        }
+        :-ms-input-placeholder {  
+        font-style: italic; 
+        }
 
 </style>
 
@@ -115,25 +127,26 @@ if (!isset($_SESSION['loggedin']))
     <div>
     <img src="products/logo.png" alt="rarestamplogo" width=20%" height="20%" style="display: block; margin:0 auto">
     </div>
-    <div>
-        <form action="#" method="POST" id="searchForm">
-            <div class='container' id="searchBar">
-                <input type="text" id="inputSearch"  placeholder="Search Products">
-                <div id='submitsearch'>
-                <span><button type="submit">Search</button></span>
+    <section>
+        <div>
+            <form action="#" method="POST" id="searchForm">
+                <div class='container' id="searchBar">
+                    <input type="text" id="inputSearch"  placeholder="Enter search keywords (name, region, or era)">
+                    <div id='submitsearch'>
+                    <span><button type="submit">Search</button></span>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-        
-    <!-- <section class="container resultList" style="padding-top: 10%;display: none;"> -->
+            </form>
+        </div>
+    </section>  
+    <section>
         <div class="container resultList text-center" style="padding-top: 30px; display: none;">
             <h2 style="color: #fff;">Result</h2>
             <p style="color: #fff;">Found <span class="result-count">0</span> results.</p>
         </div>
     <!-- </section> -->
         <div class="row list-item" style="margin: 16px;"></div>
-    <!-- </section> -->
+    </section>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -181,7 +194,7 @@ if (!isset($_SESSION['loggedin']))
                                 <div class="caption text-center">
                                     <h3>${data.fld_product_name}</h3>
                                     <p>
-                                        <a href="products_details.php?pid=${data.fld_product_id}" class="btn btn-primary" role="button">View</a>
+                                        <a href="products_details.php?pid=${data.fld_product_id}" class="btn btn-default btn-lg active" role="button">View</a>
                                     </p>
                                 </div>
                             </div>

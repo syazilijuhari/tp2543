@@ -13,11 +13,11 @@ if (isset($_GET['search'])) {
     // 2 - brand
 
     $name = (isset($data[0]) ? $data[0] : '');
-    $price = (isset($data[1]) ? $data[1] : '');
-    $region = (isset($data[2]) ? $data[2] : '');
+    $region = (isset($data[1]) ? $data[1] : '');
+    $era = (isset($data[2]) ? $data[2] : '');
 
     try {
-        $stmt = $db->prepare("SELECT * FROM `tbl_products_a173630_pt2` WHERE fld_product_name LIKE ? OR fld_product_price LIKE ? OR fld_product_region LIKE ?");
+        $stmt = $db->prepare("SELECT * FROM `tbl_products_a173630_pt2` WHERE fld_product_name LIKE ? OR fld_product_region LIKE ? OR fld_product_era LIKE ?");
         $stmt->execute(["%{$search}%","%{$search}%", "%{$search}%"]);
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
