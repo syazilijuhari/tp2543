@@ -29,9 +29,6 @@ A173630
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
-<?php
-if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
-?>
 <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
 <div class="container-fluid">
   <div class="row">
@@ -142,9 +139,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       </form>
     </div>
   </div>
-  <?php
-  }
-  ?>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
       <div class="page-header">

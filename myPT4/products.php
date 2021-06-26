@@ -18,6 +18,7 @@ A173630
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -407,119 +408,94 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
   <?php
   }
   ?>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-      <div class="page-header">
-        <h2>Products List</h2>
-      </div>
-    <table class="table table-striped table-bordered">
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Region</th>
-      <th>Year</th>
-      <th>Era</th>
-      <th>Condition</th>
-      <th>Action</th>
-    </tr>
+  <div class="container-fluid" style="padding-bottom: 30px;">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+        <div class="page-header">
+          <h2>Products List</h2>
+          <!-- <input type="search" id="searchProduct" value="" class="form-control" placeholder="Search Products"> -->
+        </div>
+      <table class="table table-striped table-bordered" id="dataTable">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Region</th>
+        <th>Year</th>
+        <th>Era</th>
+        <th>Condition</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php
+      try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+      }
+      catch(PDOException $e){
+            echo "Error: " . $e->getMessage();
+      }
+      foreach($result as $readrow) {
+      ?>  
+    
+      <tr>
+        <td><?php echo $readrow['fld_product_id']; ?></td>
+        <td><?php echo $readrow['fld_product_name']; ?></td>
+        <td><?php echo $readrow['fld_product_price']; ?></td>
+        <td><?php echo $readrow['fld_product_region']; ?></td>
+        <td><?php echo $readrow['fld_product_year']; ?></td>
+        <td><?php echo $readrow['fld_product_era']; ?></td>
+        <td><?php echo $readrow['fld_product_condition']; ?></td>
+        <td>
+          <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
+          <?php
+          if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
+          ?>
+          <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
+          <a href="products.php?delete=<?php echo $readrow['fld_product_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+          <?php
+          }
+          ?>
+        </td>
+      </tr>
 
-    <?php
-    // Read
-    $per_page = 5;
-    if (isset($_GET["page"]))
-      $page = $_GET["page"];
-    else
-      $page = 1;
-    $start_from = ($page-1) * $per_page;
-    try {
-      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2 LIMIT $start_from, $per_page");
-      $stmt->execute();
-      $result = $stmt->fetchAll();
-    }
-    catch(PDOException $e){
-          echo "Error: " . $e->getMessage();
-    }
-    foreach($result as $readrow) {
-    ?>  
-
-    <tr>
-      <td><?php echo $readrow['fld_product_id']; ?></td>
-      <td><?php echo $readrow['fld_product_name']; ?></td>
-      <td><?php echo $readrow['fld_product_price']; ?></td>
-      <td><?php echo $readrow['fld_product_region']; ?></td>
-      <td><?php echo $readrow['fld_product_year']; ?></td>
-      <td><?php echo $readrow['fld_product_era']; ?></td>
-      <td><?php echo $readrow['fld_product_condition']; ?></td>
-      <td>
-        <a href="products_details.php?pid=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
-        <?php
-        if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') {
-        ?>
-        <a href="products.php?edit=<?php echo $readrow['fld_product_id']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
-        <a href="products.php?delete=<?php echo $readrow['fld_product_id']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
-        <?php
-        }
-        ?>
-      </td>
-    </tr>
-
-    <?php
-    }
-    $conn = null;
-    ?>
-
-  </table>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-    <nav>
-        <ul class="pagination">
-        <?php
-        try {
-          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $stmt = $conn->prepare("SELECT * FROM tbl_products_a173630_pt2");
-          $stmt->execute();
-          $result = $stmt->fetchAll();
-          $total_records = count($result);
-        }
-        catch(PDOException $e){
-              echo "Error: " . $e->getMessage();
-        }
-        $total_pages = ceil($total_records / $per_page);
-        ?>
-        <?php if ($page==1) { ?>
-          <li class="disabled"><span aria-hidden="true">«</span></li>
-        <?php } else { ?>
-          <li><a href="products.php?page=<?php echo $page-1 ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-        <?php
-        }
-        for ($i=1; $i<=$total_pages; $i++)
-          if ($i == $page)
-            echo "<li class=\"active\"><a href=\"products.php?page=$i\">$i</a></li>";
-          else
-            echo "<li><a href=\"products.php?page=$i\">$i</a></li>";
-        ?>
-        <?php if ($page==$total_pages) { ?>
-          <li class="disabled"><span aria-hidden="true">»</span></li>
-        <?php } else { ?>
-          <li><a href="products.php?page=<?php echo $page+1 ?>" aria-label="Previous"><span aria-hidden="true">»</span></a></li>
-        <?php } ?>
-      </ul>
-    </nav>
+      <?php
+      }
+      $conn = null;
+      ?>
+    </tbody>
+    </table>
   </div>
 </div>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="application/javascript">
     var loadFile = function (event) {
         document.getElementById('inputFileName').value = event.target.files[0]['name'];
     };
+
+    // $(document).ready(function(){
+    //   $("#searchProduct").on("keyup", function() {
+    //     var value = $(this).val().toLowerCase();
+    //     $("#dataTable tr").filter(function() {
+    //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    //     });
+    //   });
+    // });
+
+    $(document).ready(function () {
+        $("#dataTable").DataTable();
+    });
+
 </script>
 </body>
 </html>

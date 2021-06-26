@@ -38,7 +38,7 @@ if (isset($_POST['update'])) {
    
   try {
  
-      $stmt = $conn->prepare("UPDATE tbl_staffs_a173630_pt2 SET fld_staff_id = :staff_id, fld_staff_name = :staff_name, fld_staff_phone = :staff_phone, fld_staff_email = :staff_email, fld_staff_role = staff_role WHERE fld_staff_id = :oldsid");
+      $stmt = $conn->prepare("UPDATE tbl_staffs_a173630_pt2 SET fld_staff_id = :staff_id, fld_staff_name = :staff_name, fld_staff_phone = :staff_phone, fld_staff_email = :staff_email, fld_staff_role = :staff_role WHERE fld_staff_id = :oldsid");
      
       $stmt->bindParam(':staff_id', $sid, PDO::PARAM_STR);
       $stmt->bindParam(':staff_name', $sname, PDO::PARAM_STR);

@@ -12,7 +12,7 @@
   
   body {
     font-family: sans-serif;
-    background: linear-gradient(#161616, #243b55);
+    background: #161616;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -35,20 +35,20 @@
 
   .login-box {
     position: absolute;
-    top: 63%;
+    top: 64%;
     left: 50%;
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    background-color: #fff;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 1);
     border-radius: 10px;
   }
   
   .login-box h2 {
     margin: 0 0 30px;
     padding: 0;
-    color: #fff;
+    color: #161616;
     text-align: center;
   }
   
@@ -61,7 +61,7 @@
     top: 0;
     left: 0;
     padding: 10px 0;
-    color: #fff;
+    color: #161616;
     transition: 500ms;
     font-size: 16px;
     pointer-events: none;
@@ -70,26 +70,26 @@
   .login-box .user-box .input {
     width: 100%;
     padding: 10px 0;
-    color: #fff;
+    color: #161616;
     margin-bottom: 30px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #161616;
   }
   
   .input:active ~ label {
     top: -20px;
-    color: #03e9f4;
+    color: #838383;
     font-size: 12px;
    }
   
   .input:focus ~ label {
    top: -20px;
-   color: #03e9f4;
+   color: #838383;
    font-size: 12px;
   }
   
   .input:valid ~ label  {
     top: -20px;
-    color: #03e9f4;
+    color: #838383;
     font-size: 12px;
    }
   
@@ -105,14 +105,14 @@
     transition: all .5s;
     margin-top: 40px;
     letter-spacing: 4px;
-    color: #03e9f4;
+    color: #161616;
   }
   
   .login-box a:hover {
-    background-color: #03e9f4;
+    background-color: #161616;
     color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4;
+    box-shadow: 0 0 5px #161616;
   }
   
   .login-box a span {
@@ -136,7 +136,7 @@
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #03e9f4);
+    background: linear-gradient(90deg, transparent, #161616);
     animation: btnAnimA 1500ms linear infinite;
     /* animation-delay: 200ms; */
     animation-fill-mode: backwards;
@@ -160,7 +160,7 @@
     right: 0;
     width: 2px;
     height: 100%;
-    background: linear-gradient(180deg, transparent, #03e9f4);
+    background: linear-gradient(180deg, transparent, #161616);
     animation: btnAnimB 1500ms linear infinite;
     animation-delay: 300ms;
   }
@@ -182,7 +182,7 @@
     right: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(270deg, transparent, #03e9f4);
+    background: linear-gradient(270deg, transparent, #161616);
     animation: btnAnimC 1500ms linear infinite;
     animation-delay: 600ms;
   }
@@ -201,7 +201,7 @@
     bottom: -100%;
     width: 2px;
     height: 100%;
-    background: linear-gradient(360deg, transparent, #03e9f4);
+    background: linear-gradient(360deg, transparent, #161616);
     animation: btnAnimD 1500ms linear infinite;
     animation-delay: 900ms;
   } 
