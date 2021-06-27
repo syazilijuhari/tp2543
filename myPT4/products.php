@@ -496,7 +496,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
     $(document).ready(function () {
         $("#dataTable").removeAttr("width").DataTable({
           columnDefs: [
-              { width: "135px", targets: 7 }
+          { orderable: false, targets: 7 },
+          { width: "135px", targets: 7 }
           ],
           fixedColumns: true
       });
