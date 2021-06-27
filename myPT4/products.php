@@ -477,6 +477,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
 <script src="js/jquery-3.6.0.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.3/js/dataTables.fixedColumns.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="application/javascript">
     var loadFile = function (event) {
@@ -493,7 +494,12 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
     // });
 
     $(document).ready(function () {
-        $("#dataTable").DataTable();
+        $("#dataTable").removeAttr("width").DataTable({
+          columnDefs: [
+              { width: "135px", targets: 7 }
+          ],
+          fixedColumns: true
+      });
     });
 
 </script>
