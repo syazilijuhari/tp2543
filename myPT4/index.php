@@ -119,6 +119,7 @@ if (!isset($_SESSION['loggedin']))
                     $('.list-item').empty();
 
                     if (res.status == 200) {
+                        console.log(res.data);
                         $(".result-count").text(res.data.length);
 
                         $.each(res.data, function (idx, data) {
@@ -145,6 +146,9 @@ if (!isset($_SESSION['loggedin']))
                                 scrollTop: $("#resultSection").offset().top
                             }, 500);
                         });
+                    }
+                    else {
+                        console.log(res.data);
                     }
                 },
                 complete: function () {
