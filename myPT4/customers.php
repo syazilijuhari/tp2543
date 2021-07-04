@@ -5,6 +5,8 @@ A173630
 
 <?php
   include_once 'customers_crud.php';
+  if (!isset($_SESSION['loggedin']))
+    header("LOCATION: login.php");
 ?>
 
 <!DOCTYPE html>

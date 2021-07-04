@@ -70,7 +70,7 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
 </head>
 <body>
 <div>
-    <img src="products/logo.png" alt="logo" width=20%" height="20%" style="display: block; margin:0 auto" >
+    <img src="products/logo.png" alt="logo" width=300px" height="300px" style="display: block; margin:0 auto" >
 </div>
 <div class="login-box">
     <h2>Login</h2>
@@ -92,18 +92,45 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
         }
         ?>
       <!-- /.user-box -->
-      <button type="submit">
-      <a>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Sign In
-      </a>
-      </button>
+      <div>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-weight: bold;">Read Me</button>
+      </div>
+      <div>
+        <button id="btntp" type="submit">
+        <a>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Sign In
+        </a>
+        </button>
+      </div>
+      
     </form>
     <!-- /form -->
   </div>
   <!-- /.login-box -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Sample Email and Password</h4>
+        </div>
+        <div class="modal-body">
+          <p><b>Admin</b><br>Email: admin@gmail.com<br>Password: admin123</p>
+          <p><b>Staff</b><br>Email: staff@gmail.com<br>Password: staff123</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </body>
 </html>

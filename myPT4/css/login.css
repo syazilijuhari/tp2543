@@ -8,6 +8,7 @@
     font-family: sans-serif;
     width: 100%;
     height: 100%;
+    min-height: 400px;
   }
   
   body {
@@ -24,7 +25,7 @@
     background: transparent;
   }
   
-  button {
+  #btntp {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
