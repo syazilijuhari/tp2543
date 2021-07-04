@@ -385,7 +385,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
               <span class="input-group-btn">
               <label class="btn btn-primary">
                   <input type="file" accept="image/*" name="fileToUpload" id="inputImage" onchange="loadFile(event);" />
-                  <i class="fa fa-cloud-upload"></i> Upload
+                  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload
               </label>
               </span>
             </div>
