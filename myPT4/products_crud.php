@@ -76,7 +76,7 @@ if (isset($_POST['create'])) {
         if ($uploadStatus == 0)
             $_SESSION['error'] = "Please make sure the file uploaded is an image.";
         elseif ($uploadStatus == 1)
-            $_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
+            $_SESSION['error'] = "Sorry, only file below 10MB are allowed.";
         elseif ($uploadStatus == 2)
             $_SESSION['error'] = "Sorry, only ".join(", ",$extention)." files are allowed.";
         elseif ($uploadStatus == 3)
@@ -138,7 +138,7 @@ if (isset($_POST['update'])) {
 			if ($flag == 0)
 				$_SESSION['error'] = "Please make sure the file uploaded is an image.";
 			elseif ($flag == 1)
-				$_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
+				$_SESSION['error'] = "Sorry, only file below 10MB are allowed.";
 			elseif ($flag == 2)
 				$_SESSION['error'] = "Sorry, only ".join(", ",$extention)." files are allowed.";
 			elseif ($flag == 3)

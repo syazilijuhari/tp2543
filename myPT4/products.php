@@ -52,12 +52,11 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       ?>
       </div>
       <?php
-      if (isset($_SESSION['error'])) {
+        if (isset($_SESSION['error'])) {
           echo "<p class='text-danger text-center'>{$_SESSION['error']}</p>";
           unset($_SESSION['error']);
-      }
+        }
       ?>
-
       <form action="products.php" method="post" class="form-horizontal" enctype="multipart/form-data">
         <div class="form-group">
           <label for="productid" class="col-sm-3 control-label">ID</label>
@@ -392,7 +391,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
             </div>
           </div>
         </div>
-
+  
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
             <?php if (isset($_GET['edit'])) { ?>
