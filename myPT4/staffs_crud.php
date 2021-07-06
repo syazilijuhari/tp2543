@@ -10,19 +10,21 @@ if (isset($_POST['create'])) {
  
   try {
  
-      $stmt = $conn->prepare("INSERT INTO tbl_staffs_a173630_pt2(fld_staff_id, fld_staff_name, fld_staff_phone, fld_staff_email, fld_staff_role) VALUES(:staff_id, :staff_name, :staff_phone, :staff_email, :staff_role)");
+      $stmt = $conn->prepare("INSERT INTO tbl_staffs_a173630_pt2(fld_staff_id, fld_staff_name, fld_staff_phone, fld_staff_email, fld_staff_role, fld_staff_password) VALUES(:staff_id, :staff_name, :staff_phone, :staff_email, :staff_role, :staff_password)");
      
       $stmt->bindParam(':staff_id', $sid, PDO::PARAM_STR);
       $stmt->bindParam(':staff_name', $sname, PDO::PARAM_STR);
       $stmt->bindParam(':staff_phone', $sphone, PDO::PARAM_STR);
       $stmt->bindParam(':staff_email', $semail, PDO::PARAM_STR);
       $stmt->bindParam(':staff_role', $srole, PDO::PARAM_STR);
+      $stmt->bindParam(':staff_password', $spass, PDO::PARAM_STR);
          
       $sid = $_POST['staff_id'];
       $sname = $_POST['staff_name'];
       $sphone = $_POST['staff_phone'];
       $semail = $_POST['staff_email'];
       $srole = $_POST['staff_role'];
+      $spass = $_POST['staff_password'];
            
       $stmt->execute();
     }
@@ -38,13 +40,14 @@ if (isset($_POST['update'])) {
    
   try {
  
-      $stmt = $conn->prepare("UPDATE tbl_staffs_a173630_pt2 SET fld_staff_id = :staff_id, fld_staff_name = :staff_name, fld_staff_phone = :staff_phone, fld_staff_email = :staff_email, fld_staff_role = :staff_role WHERE fld_staff_id = :oldsid");
+      $stmt = $conn->prepare("UPDATE tbl_staffs_a173630_pt2 SET fld_staff_id = :staff_id, fld_staff_name = :staff_name, fld_staff_phone = :staff_phone, fld_staff_email = :staff_email, fld_staff_role = :staff_role, fld_staff_password = :staff_password WHERE fld_staff_id = :oldsid");
      
       $stmt->bindParam(':staff_id', $sid, PDO::PARAM_STR);
       $stmt->bindParam(':staff_name', $sname, PDO::PARAM_STR);
       $stmt->bindParam(':staff_phone', $sphone, PDO::PARAM_STR);
       $stmt->bindParam(':staff_email', $semail, PDO::PARAM_STR);
       $stmt->bindParam(':staff_role', $srole, PDO::PARAM_STR);
+      $stmt->bindParam(':staff_password', $spass, PDO::PARAM_STR);
       $stmt->bindParam(':oldsid', $oldsid, PDO::PARAM_STR);
   
       $sid = $_POST['staff_id'];
@@ -52,6 +55,7 @@ if (isset($_POST['update'])) {
       $sphone = $_POST['staff_phone'];
       $semail = $_POST['staff_email'];
       $srole = $_POST['staff_role'];
+      $spass = $_POST['staff_password'];
       $oldsid = $_POST['oldsid']; 
            
       $stmt->execute();

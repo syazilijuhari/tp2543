@@ -21,6 +21,7 @@ A173630
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -76,21 +77,36 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
         </div>
 
         <div class="form-group">
-          <label for="staffemail" class="col-sm-3 control-label">Email</label>
-          <div class="col-sm-9">
-            <input class="form-control" type="text" placeholder="Staff Email" id="sphone" name="staff_email" pattern="[a-zA-Z0-9-]+@gmail.com" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>">
-          </div>
-        </div>
-
-        <div class="form-group">
           <label for="staffrole" class="col-sm-3 control-label">Role</label>
           <div class="col-sm-9">
-            <select class="form-control" id="role" name="staff_role" required>
+            <select class="form-control" id="srole" name="staff_role" required>
               <option disabled selected value="">Select</option>
               <option value="Admin" <?php if(isset($_GET['edit'])) if($editrow['fld_staff_role']=="Admin") echo "selected"; ?>>Admin</option>
               <option value="Staff" <?php if(isset($_GET['edit'])) if($editrow['fld_staff_role']=="Staff") echo "selected"; ?>>Staff</option>
             </select>
           </div>
+        </div>
+
+        <div class="form-group">
+          <label for="staffemail" class="col-sm-3 control-label">Email</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Staff Email" id="semail" name="staff_email" pattern="[a-zA-Z0-9-]+@gmail.com" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="staffpass" class="col-sm-3 control-label">Password</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input class="form-control" type="password" placeholder="Staff Password" id="spass" name="staff_password" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_password']; ?>">
+                <span class="input-group-addon" style="background-color: transparent;">
+                <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                </span>  
+            </div>
+          </div>
+          <!-- <div class="checkbox">
+              <label><input type="checkbox" onclick="myFunction()">Show Password</label>
+            </div> -->
         </div>
 
         <div class="form-group">
@@ -219,5 +235,24 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+// function myFunction() {
+//   var x = document.getElementById("spass");
+//   if (x.type === "password") {
+//     x.type = "text";
+//   } else {
+//     x.type = "password";
+//   }
+// }
+const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#spass');
+    togglePassword.addEventListener('click', function (e) {
+      // toggle the type attribute
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      // toggle the eye / eye slash icon
+      this.classList.toggle('bi-eye');
+    });
+</script>
 </body>
 </html>

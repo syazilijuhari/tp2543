@@ -81,7 +81,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
         </div>
 
         <div class="form-group">
-          <label for="productregion" class="col-sm-3 control-label">Region</label>
+          <label for="productregion" class="col-sm-3 control-label">Country</label>
           <div class="col-sm-9">
             <select class="form-control" id="region" name="product_region" required>
               <option disabled selected value="">Select</option>
@@ -424,7 +424,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Region</th>
+        <th>Country</th>
         <th>Year</th>
         <th>Era</th>
         <th>Condition</th>

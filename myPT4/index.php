@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedin']))
                     <div class="row">
                         <div class="col-md-offset-2 col-md-8">
                             <div class="input-group">
-                                <input type="text" id="inputSearch" name="search" class="form-control input-lg" placeholder="Enter search keywords (name, region, or era)">
+                                <input type="text" id="inputSearch" name="search" class="form-control input-lg" placeholder="Enter search keywords (name, country, or era)">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default btn-lg" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
                                 </span>

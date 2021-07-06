@@ -53,6 +53,7 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
     <title>Rare Stamps: Login</title>
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
  
@@ -82,9 +83,9 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
       <!-- /.user-box -->
       <div class="user-box">
         <input class="input" type="password" id="userPass" name="userPass" required>
+        <i class="bi bi-eye-slash" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
         <label class="label" for="password">Password</label>
       </div>
-
         <?php
         if (isset($_SESSION['error'])) {
             echo "<p class='text-danger text-center'>{$_SESSION['error']}</p>";
@@ -92,6 +93,9 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
         }
         ?>
       <!-- /.user-box -->
+      <!-- <div class="checkbox">
+        <label><input type="checkbox" onclick="myFunction()">Show Password</label>
+      </div>-->
       <div>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-weight: bold;">Read Me</button>
       </div>
@@ -132,5 +136,24 @@ if (isset($_POST['userId'], $_POST['userPass'])) {
       
     </div>
   </div>
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#userPass');
+    togglePassword.addEventListener('click', function (e) {
+      // toggle the type attribute
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      // toggle the eye / eye slash icon
+      this.classList.toggle('bi-eye');
+    });
+  //   function myFunction() {
+  //   var x = document.getElementById("userPass");
+  //   if (x.type === "password") {
+  //     x.type = "text";
+  //   } else {
+  //     x.type = "password";
+  //   }
+  // }
+  </script>
 </body>
 </html>
