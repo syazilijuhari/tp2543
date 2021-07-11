@@ -7,11 +7,11 @@ $Json = array();
 if (isset($_GET['search'])) {
     $search = htmlspecialchars($_GET['search']);
     $data = explode(" ", $search);
-    $field = ['fld_product_name', 'fld_product_region' , 'fld_product_era'];
+    $field = ['fld_product_name', 'fld_product_region' , 'fld_product_condition'];
 
     $name = (isset($data[0]) ? $data[0] : '');
     $region = (isset($data[1]) ? $data[1] : '');
-    $era = (isset($data[2]) ? $data[2] : '');
+    $condition = (isset($data[2]) ? $data[2] : '');
 
     try {
         //search each 3 keywords or search 3 keyword at once
@@ -22,7 +22,7 @@ if (isset($_GET['search'])) {
 
        elseif(count($data)==3){
             $stmt = $db->prepare("SELECT * FROM `tbl_products_a173630_pt2` WHERE {$field[0]} LIKE ? AND {$field[1]} LIKE ? AND {$field[2]} LIKE ?");
-            $stmt->execute(["%{$name}%","%{$region}%", "%{$era}%"]);
+            $stmt->execute(["%{$name}%","%{$region}%", "%{$condition}%"]);
         }
 
         //search any keywords from 3 attributes

@@ -21,6 +21,7 @@ if (!isset($_SESSION['loggedin']))
     <link rel="shortcut icon" type="image/x-icon" href="products/icon.png"/>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/background.css">
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,10 +38,10 @@ if (!isset($_SESSION['loggedin']))
         padding: 0;
         height: 100%;
         width: 100%;
-        background: #161616;
+        /* background: #161616;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-position: center;
+        background-position: center; */
     }
     ::-webkit-input-placeholder {
         font-style: italic;
@@ -68,7 +69,7 @@ if (!isset($_SESSION['loggedin']))
                     <div class="row">
                         <div class="col-md-offset-2 col-md-8">
                             <div class="input-group">
-                                <input type="text" id="inputSearch" name="search" class="form-control input-lg" placeholder="Enter search keywords (name, country, or era)">
+                                <input type="text" id="inputSearch" name="search" class="form-control input-lg" placeholder="Enter search keywords (name, country, or condition)">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default btn-lg" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
                                 </span>
@@ -93,6 +94,7 @@ if (!isset($_SESSION['loggedin']))
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
     <script>
         $("#searchForm").submit(function (e) {
         e.preventDefault();
@@ -128,7 +130,7 @@ if (!isset($_SESSION['loggedin']))
 
                             $('.list-item').append(`<div class="col-md-6">
                                 <div class="thumbnail thumbnail-dark">
-                                <img src="products/${data.fld_product_image}" alt="${data.fld_product_name}" style="height: 150px;">
+                                <img src="products/${data.fld_product_image}" alt="${data.fld_product_name}" style="height: 150px; margin-top: 20px">
                                 <div class="caption text-center">
                                 <h3>${data.fld_product_name}</h3>
                                 <p>
