@@ -29,6 +29,11 @@ A173630
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    body {
+        background-color: #BBDEFB;
+      }
+    </style>
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
@@ -99,7 +104,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
           <div class="col-sm-9">
             <div class="input-group">
               <input class="form-control" type="password" placeholder="Staff Password" id="spass" name="staff_password" required value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_password']; ?>">
-                <span class="input-group-addon" style="background-color: transparent;">
+                <span class="input-group-addon" style="background-color: #fff">
                 <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
                 </span>  
             </div>
@@ -132,7 +137,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
       <div class="page-header">
         <h2>Staff List</h2>
       </div>
-    <table class="table table-striped table-bordered">
+    <table style="background-color: #fff;" class="table table-striped table-bordered">
     <tr>
       <th>ID</th>
       <th>Name</th>

@@ -29,6 +29,9 @@ A173630
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+      body {
+        background-color: #BBDEFB;
+      }
       input[type="file"] {
           display: none;
       }
@@ -417,7 +420,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'Admin') 
           <h2>Products List</h2>
           <!-- <input type="search" id="searchProduct" value="" class="form-control" placeholder="Search Products"> -->
         </div>
-      <table class="table table-striped table-bordered" id="dataTable">
+      <table style="background-color: #fff" class="table table-striped table-bordered" id="dataTable">
       <thead>
       <tr>
         <th>ID</th>

@@ -27,6 +27,11 @@ A173630
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    body {
+        background-color: #BBDEFB;
+      }
+    </style>
 </head>
 <body>
 <?php include_once 'nav_bar.php'; ?>
@@ -133,7 +138,7 @@ $conn = null;
       <div class="page-header">
         <h2>Products in This Order</h2>
       </div>
-      <table class="table table-striped table-bordered">
+      <table style="background-color: #fff;" class="table table-striped table-bordered">
       <tr>
         <th>Order Detail ID</th>
         <th>ID</th>
