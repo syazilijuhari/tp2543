@@ -29,9 +29,9 @@ A173630
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        input[type="file"] {
-            display: none;
-        }
+      input[type="file"] {
+          display: none;
+      }
     </style>
 </head>
 <body>

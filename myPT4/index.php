@@ -133,7 +133,7 @@ if (!isset($_SESSION['loggedin']))
                                 <div class="caption text-center">
                                 <h3>${data.fld_product_name}</h3>
                                 <p>
-                                <a href="products_details.php?pid=${data.fld_product_id}" class="btn btn-default btn-lg active" role="button">View</a>
+                                <a href="products_details.php?pid=${data.fld_product_id}" class="btn btn-primary btn-lg active" role="button">View Details</a>
                                 </p>
                                 </div>
                                 </div>
