@@ -170,5 +170,8 @@ $conn = null;
     </div>
   </div>
 </div>
+<script>
+  print()
+</script>
 </body>
 </html>
