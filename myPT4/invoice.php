@@ -9,7 +9,7 @@ A173630
 ?>
 <?php
 
-if (!isset($_GET['oid']) || empty($_GET['oid']))
+if (!isset($_GET['order_id']) || empty($_GET['order_id']))
   header("LOCATION: orders.php");
 
 try {
