@@ -8,6 +8,10 @@ A173630
     header("LOCATION: login.php");
 ?>
 <?php
+
+if (!isset($_GET['oid']) || empty($_GET['oid']))
+  header("LOCATION: orders.php");
+
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -172,5 +176,8 @@ $conn = null;
     </div>
   </div>
 </div>
+<script>
+  print()
+</script>
 </body>
 </html>
