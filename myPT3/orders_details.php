@@ -80,11 +80,11 @@ $conn = null;
       <div class="page-header">
         <h2>Add a Product</h2>
       </div>
-      <form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder">
+      <form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder" onsubmit="return validateForm()">
       <div class="form-group">
         <label for="prd" class="col-sm-3 control-label">Product</label>
         <div class="col-sm-9">
-          <select name="product_id" class="form-control" id="pid" required>
+          <select name="product_id" class="form-control" id="pid">
             <option disabled selected value="">Select</option>
             <?php
             try {
@@ -112,7 +112,7 @@ $conn = null;
       <div class="form-group">
         <label for="qty" class="col-sm-3 control-label">Quantity</label>
         <div class="col-sm-9">
-          <input name="quantity" type="number" class="form-control" id="qty" min="1" required>
+          <input name="quantity" type="number" class="form-control" id="qty" min="1">
         </div>
       </div>
 
